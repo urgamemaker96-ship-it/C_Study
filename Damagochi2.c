@@ -1,4 +1,4 @@
-#include <stdio.h>//test 용 주석담
+#include <stdio.h>//test 용 주석담이다. 깃허브 확인용이다!
 
 int main(void)
 {	
