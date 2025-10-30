@@ -6,6 +6,8 @@
 //함수 선언들 -> 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
 int AttackAddHealth1(int, int,int);
 int AttackAddHealth2(int, int,int);
+int Percent(int);
+
 
 //함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
 int AttackAddHealth2(int num1, int num2, int num3)
@@ -24,6 +26,14 @@ int AttackAddHealth1(int num1, int num2, int num3)
 	return num3 - totalDamage;
 
 }
+
+int Percent(int num1) // 확률조건을 출력해주는 함수
+{	
+	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
+								//0과 1로 판단 -> 조건이 참이면 실행되는거다!
+}
+
+
 
 
 
@@ -137,8 +147,8 @@ int main(void)
 
 		case 4: // 산책하기
 		{
-			int percent1 = rand() % 100; // 랜덤확률 만들어주기
-			if (percent1 < 50) //0~49니깐 50퍼센트다
+			
+			if (Percent(50)) //0~49니깐 50퍼센트다
 			{
 				printf("===================================================\n");
 				printf("산책 중 적이 나타났습니다!!.\n");
@@ -223,8 +233,8 @@ int main(void)
 						health -= battle_enemyattack;
 						printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
 						
-						int percent1 = rand() % 100;
-						if (percent1 < 30) // 적스킬은 30퍼센트로 스킬 나감
+						
+						if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 						{
 							health=AttackAddHealth2(battle_enemyhealth, battle_enemyattack,health);
 						}
@@ -255,8 +265,8 @@ int main(void)
 
 		case 5: // 터그놀이
 		{
-			int percent2 = rand() % 100;
-			if (percent2 < 60)
+			
+			if (Percent(60))
 			{
 				printf("===================================================\n");
 				printf("터그놀이 중 적이 나타났습니다!!.\n");
@@ -338,8 +348,8 @@ int main(void)
 					{
 						health -= battle_enemyattack;
 						printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
-						int percent1 = rand() % 100;
-						if (percent1 < 30) // 적스킬은 30퍼센트로 스킬 나감
+						
+						if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 						{
 							health=AttackAddHealth2(battle_enemyhealth, battle_enemyattack, health);
 						}
