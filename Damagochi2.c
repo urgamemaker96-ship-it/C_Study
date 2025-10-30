@@ -3,11 +3,11 @@
 #include <time.h> // time()함수 포함 라이브러리
 
 
-//함수 선언들 -> 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
-int AttackAddHealth1(int, int,int);
-int AttackAddHealth2(int, int,int);
-int Percent(int);
-
+//함수 선언들 main 함수 위에서 함수 정의 선언해줬기 때문에 함수선언 따로 할 필요없다.
+//int AttackAddHealth1(int, int,int);
+//int AttackAddHealth2(int, int,int);
+//int Percent(int);
+//void ShowStatus(int,int,int,int,int,int,int);
 
 //함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
 int AttackAddHealth2(int num1, int num2, int num3)
@@ -33,8 +33,58 @@ int Percent(int num1) // 확률조건을 출력해주는 함수
 								//0과 1로 판단 -> 조건이 참이면 실행되는거다!
 }
 
+void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7) 
+{	
+	printf("===================================================\n");
+	printf("상태창\n");
+	printf("체력: %d\n", num1);
+	printf("마나: %d\n", num2);
+	printf("포만감: %d\n", num3);
+	printf("화장실: %d\n", num4);
+	printf("스트레스: %d\n", num5);
+	printf("경험치: %d\n", num6);
+	printf("현재골드: %d\n", num7);
+	printf("===================================================\n");
+}
 
+void ShowChoice()
+{
+	printf("\n=======================================================================================\n");
+	printf("1.잠자기 2.응가하기 3.밥주기 4.산책하기 5.터그놀이 6.상점 7.다마고치 가이드라인\n");
+	printf("=======================================================================================\n");
+	printf("입력: ");
 
+}
+
+void ShowBattle(int num1, int num2, int num3) 
+{
+	printf("\n----- 전투 -----\n");
+	printf("적 체력: %d\n", num1);
+	printf("내 체력: %d\n", num2);
+	printf("내 마나: %d\n", num3);
+	printf("원하는 숫자를 눌러 대응 하십쇼\n");
+	printf("1.공격 2.스킬 3.도망\n");
+	printf("입력: ");
+}
+
+void ShowShop() 
+{
+	printf("원하는 물품을 구입하여 주십쇼!!\n");
+	// 입력해달라는 안내 메시지를 출력
+	printf("=========================================================================\n");
+	printf("1.최대체력증가포션:200골드 2.공격력증가포션:300골드 3.레벨업포션:400골드\n");
+	printf("=========================================================================\n");
+	printf("입력: ");
+
+}
+
+void ShowGuide() 
+{
+	printf("다마고치는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n");
+	printf("다마고치는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n");
+	printf("다마고치는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n");
+	printf("다마고치는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n");
+}
 
 
 int main(void)
@@ -78,22 +128,10 @@ int main(void)
 
 
 		// 다마고치의 체력,포만감,배변활동정도 가 떠야된다
-		printf("===================================================\n");
-		printf("상태창\n");
-		printf("체력: %d\n", health);
-		printf("마나: %d\n", mana);
-		printf("포만감: %d\n", hungry);
-		printf("화장실: %d\n", poo);
-		printf("스트레스: %d\n", stress);
-		printf("경험치: %d\n", exp);
-		printf("현재골드: %d\n", rewardgold);
-		printf("===================================================\n");
-
+		ShowStatus(health,mana,hungry,poo,stress,exp,rewardgold);
+		ShowChoice();
 		// 입력해달라는 안내 메시지를 출력
-		printf("\n=======================================================================================\n");
-		printf("1.잠자기 2.응가하기 3.밥주기 4.산책하기 5.터그놀이 6.상점 7.다마고치 가이드라인\n");
-		printf("=======================================================================================\n");
-		printf("입력: ");
+		
 		
 		//1~6번 숫자를 입력할 수 있게 입력을 받는다
 		scanf_s("%d", &num1);
@@ -161,13 +199,7 @@ int main(void)
 				//while 문 안에 while 문 만들어서 통제할려면 변수가 필요했다
 				while (turnon)
 				{
-					printf("\n----- 전투 -----\n");
-					printf("적 체력: %d\n", battle_enemyhealth);
-					printf("내 체력: %d\n", health);
-					printf("내 마나: %d\n", mana);
-					printf("원하는 숫자를 눌러 대응 하십쇼\n");
-					printf("1.공격 2.스킬 3.도망\n");
-					printf("입력: ");
+					ShowBattle(battle_enemyhealth, health, mana);
 					scanf_s("%d", &num1);
 
 					switch (num1) // 분기문 안에 분기문 만들 수 있었다!!!
@@ -278,12 +310,7 @@ int main(void)
 
 				while (turnon)
 				{
-					printf("\n----- 전투 -----\n");
-					printf("적 체력: %d\n", battle_enemyhealth);
-					printf("내 체력: %d\n", health);
-					printf("원하는 숫자를 눌러 대응 하십쇼\n");
-					printf("1.공격 2.스킬 3.도망\n");
-					printf("입력: ");
+					ShowBattle(battle_enemyhealth, health, mana);
 					scanf_s("%d", &num1);
 
 					switch (num1)
@@ -392,13 +419,7 @@ int main(void)
 			}
 			else
 			{
-				printf("원하는 물품을 구입하여 주십쇼!!\n");
-				// 입력해달라는 안내 메시지를 출력
-				printf("=========================================================================\n");
-				printf("1.최대체력증가포션:200골드 2.공격력증가포션:300골드 3.레벨업포션:400골드\n");
-				printf("=========================================================================\n");
-				printf("입력: ");
-
+				ShowShop();
 				//분기문 안에 분기문 만들 수 있다, 입력 받을 변수 num2로 만드려고 했으나 그럴 필요 없어 num1만 씀, 입력받는건 의미가 없다 하나면 충분하다.
 				scanf_s("%d", &num1);
 				switch (num1)
@@ -426,10 +447,7 @@ int main(void)
 			}
 		
 		case 7:
-			printf("다마고치는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n");
-			printf("다마고치는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n");
-			printf("다마고치는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n");
-			printf("다마고치는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n");
+			ShowGuide();
 			break;
 		
 		//경험치는 100 * 현재레벨 * 1.2
