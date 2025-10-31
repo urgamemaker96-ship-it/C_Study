@@ -4,13 +4,13 @@
 
 
 //함수 선언들 main 함수 위에서 함수 정의 선언해줬기 때문에 함수선언 따로 할 필요없다.
-//int AttackAddHealth1(int, int,int);
-//int AttackAddHealth2(int, int,int);
-//int Percent(int);
-//void ShowStatus(int,int,int,int,int,int,int);
+int AttackAddHealth1(int, int,int);
+int AttackAddHealth2(int, int,int);
+void ShowStatus(int,int,int,int,int,int,int);
 void ShowGuide(); // 바깥라인에다가 함수 선언해줘야 해당 함수 쓸수있다. -> 함수안에 함수 사용할때
 void ShowShop();
-
+void ShowBattle(int,int,int);
+int Percent(int);
 
 int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
 int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
@@ -79,6 +79,235 @@ void SwitchSelect1to3(int num1)
 
 	}
 }
+
+void SwitchSelect4(int num1) 
+{
+	if (Percent(50)) //0~49니깐 50퍼센트다
+	{
+		printf("===================================================\n");
+		printf("산책 중 적이 나타났습니다!!.\n");
+
+		// 전투 변수 초기화
+		int turnon = 1; // while 문 통제 위한 변수선언
+		int battle_enemyhealth = 100;  // 적 체력변수 선언
+		int battle_enemyattack = 20; // 적 공격력 변수선언
+
+		//while 문 안에 while 문 만들어서 통제할려면 변수가 필요했다
+		while (turnon)
+		{
+			ShowBattle(battle_enemyhealth, health, mana);
+			scanf_s("%d", &num1);
+
+			switch (num1) // 분기문 안에 분기문 만들 수 있었다!!!
+			{
+			case 1: // 공격
+				battle_enemyhealth -= gochiattack;
+				printf("적에게 %d 만큼 피해를 줬습니다!\n", gochiattack);
+
+				if (battle_enemyhealth <= 0) // 적 사망조건
+				{
+					printf("적이 사망했습니다!!.\n");
+					turnon = 0;  // 내부 while 루프 탈출
+					exp += 50;   // 경험치 획득
+					printf("경험치를 %d 얻었습니다!\n", 30);
+					rewardgold += 200;
+					printf("골드를 %d 얻었습니다!\n", 200);
+					stress -= 10;
+					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
+				}
+				break;
+
+			case 2: // 적 사망 조건을 스킬에도 적용 해줘야 적 체력 -되면 사망 판정됨
+				printf("다마고치가 스킬을 사용했습니다!.\n");
+				if (mana < 50) //0으로 하니 타이밍 안맞아서 50으로 맞춤
+				{
+					printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
+
+				}
+				else
+				{
+					mana -= 50;
+
+					battle_enemyhealth = AttackAddHealth1(health, gochiattack, battle_enemyhealth);
+					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
+
+				}
+				if (battle_enemyhealth <= 0)
+				{
+					printf("적이 사망했습니다!!.\n");
+					turnon = 0;  // 내부 while 루프 탈출
+					exp += 50;   // 경험치 획득
+					printf("경험치를 %d 얻었습니다!\n", 30);
+					rewardgold += 200;
+					printf("골드를 %d 얻었습니다!\n", 200);
+					stress -= 10;
+					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
+				}
+
+				break;
+
+			case 3: // 도망
+				printf("도망쳤습니다!\n");
+				stress += 10;
+				turnon = 0;  // 내부 while 루프 탈출
+				break;
+
+
+			}
+
+			//적 체력 존재하면 공격함
+			if (battle_enemyhealth > 0)
+			{
+				health -= battle_enemyattack;
+				printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
+
+
+				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
+				{
+					health = AttackAddHealth2(battle_enemyhealth, battle_enemyattack, health);
+				}
+				if (health <= 0)
+				{
+					printf("다마고치가 쓰러졌습니다!\n");
+					turnon = 0;
+					gameon = 0;  // 게임 종료
+				}
+			}
+		}
+	}
+	else
+	{
+		if (stress <= 0)
+		{
+			stress = 0;
+			printf("더이상 스트레스 지수를 내릴 수 없습니다.\n");
+		}
+		else
+		{
+			stress -= 20;
+			printf("스트레스가 산책으로 인해 %d 줄었습니다.\n", 20);
+		}
+	}
+}
+
+void SwitchSelect5(int num1) 
+{
+	if (Percent(60))
+	{
+		printf("===================================================\n");
+		printf("터그놀이 중 적이 나타났습니다!!.\n");
+
+		// while 문 안에 또 while 문 만들어야 전투 상태 창 만들 수 있음
+		int turnon = 1; // while 문 안에 while 문 통제위한 변수선언 및 초기화
+		int battle_enemyhealth = 80;  // 산책과 비교해서 체력 낮다
+		int battle_enemyattack = 30;   // 
+
+		while (turnon)
+		{
+			ShowBattle(battle_enemyhealth, health, mana);
+			scanf_s("%d", &num1);
+
+			switch (num1)
+			{
+			case 1: // 공격
+				battle_enemyhealth -= gochiattack;
+				printf("적에게 %d 만큼 피해를 줬습니다!\n", gochiattack);
+
+				if (battle_enemyhealth <= 0)
+				{
+					printf("적이 사망했습니다!!.\n");
+					turnon = 0;  // while 문 속 while 문 탈출하고 일반 while문으로 감
+					exp += 50;
+					printf("경험치를 %d 얻었습니다!\n", 20);
+					rewardgold += 200;
+					printf("골드를 %d 얻었습니다!\n", 200);
+					stress -= 10;
+					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
+				}
+				break;
+
+			case 2: // 스킬
+				printf("다마고치가 스킬을 사용했습니다!.\n");
+				if (mana < 50)
+				{
+					printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
+				}
+				else
+				{
+
+					battle_enemyhealth = AttackAddHealth1(health, gochiattack, battle_enemyhealth);
+					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
+
+				}
+				if (battle_enemyhealth <= 0)
+				{
+					printf("적이 사망했습니다!!.\n");
+					turnon = 0;  // 내부 while 루프 탈출
+					exp += 50;   // 경험치 획득
+					printf("경험치를 %d 얻었습니다!\n", 30);
+					rewardgold += 200;
+					printf("골드를 %d 얻었습니다!\n", 200);
+					stress -= 10;
+					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
+				}
+
+
+
+				break;
+
+			case 3: // 도망
+				printf("도망쳤습니다!\n");
+				stress += 10;
+				turnon = 0;  // while 문 탈출한다. 만약 0으로 값 초기화 안해주면 도망 못하고 계속 진행됨
+				break;
+
+
+			}
+
+			// 적 체력이 존재하면 공격함
+			if (battle_enemyhealth > 0)
+			{
+				health -= battle_enemyattack;
+				printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
+
+				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
+				{
+					health = AttackAddHealth2(battle_enemyhealth, battle_enemyattack, health);
+				}
+				if (health <= 0)
+				{
+					printf("다마고치가 쓰러졌습니다!\n");
+					turnon = 0;
+					gameon = 0;  // 게임 종료
+				}
+				if (health <= 0)
+				{
+					printf("다마고치가 쓰러졌습니다!\n");
+					turnon = 0;
+					gameon = 0;  // 게임 종료
+				}
+			}
+		}
+	}
+	else
+	{
+		if (stress <= 0)
+		{
+			stress = 0;
+			printf("더이상 스트레스 지수를 내릴 수 없습니다.\n");
+		}
+		else
+		{
+			stress -= 30;
+			printf("스트레스가 터그활동으로 인해 %d 줄었습니다.\n", 30);
+		}
+	}
+}
+
+
+
+
+
 void SwitchSelect6(int num1) 
 {
 	switch (num1)
@@ -150,13 +379,11 @@ int AttackAddHealth1(int num1, int num2, int num3)
 	return num3 - totalDamage;
 
 }
-
 int Percent(int num1) // 확률조건을 출력해주는 함수
 {	
 	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
 								//0과 1로 판단 -> 조건이 참이면 실행되는거다!
 }
-
 void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7) 
 {	
 	printf("===================================================\n");
@@ -170,7 +397,6 @@ void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int 
 	printf("현재골드: %d\n", num7);
 	printf("===================================================\n");
 }
-
 void ShowChoice()
 {
 	printf("\n=======================================================================================\n");
@@ -179,7 +405,6 @@ void ShowChoice()
 	printf("입력: ");
 
 }
-
 void ShowBattle(int num1, int num2, int num3) 
 {
 	printf("\n----- 전투 -----\n");
@@ -190,7 +415,6 @@ void ShowBattle(int num1, int num2, int num3)
 	printf("1.공격 2.스킬 3.도망\n");
 	printf("입력: ");
 }
-
 void ShowShop() 
 {
 	printf("원하는 물품을 구입하여 주십쇼!!\n");
@@ -201,7 +425,6 @@ void ShowShop()
 	printf("입력: ");
 
 }
-
 void ShowGuide() 
 {
 	printf("다마고치는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n");
@@ -211,18 +434,13 @@ void ShowGuide()
 }
 
 
-
-
-
 int main(void)
-{	
-
+{
 
 	// rand() 초기화는 한 번만!
 	srand((unsigned int)time(NULL)); // 여러번 돌릴 필요없다, 프로그램 실행시 한번만 초기화 해줘도됨
-
 	while (gameon) // 반복문 지속
-	{	
+	{
 		//레벨업 조건
 		if (exp >= 100 * currentlevel * 1.2)
 		{
@@ -232,279 +450,47 @@ int main(void)
 			printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
 			printf("공격력이 %d로 증가했습니다!\n", gochiattack);
 		}
-
-
-
 		//배변지수가 100을 달성 시 게임오버 상태
-		if (poo >= 100 || stress >=100)
+		if (poo >= 100 || stress >= 100)
 		{
 			printf("다마고치가 병에 걸렸습니다.\n");
 			printf("게임이 종료되었습니다.\n");
 			break;
 		}
 		//승리 조건달아주기
-		if (currentlevel == 10) 
+		if (currentlevel == 10)
 		{
 			printf("다마고치가 완전히 성장했습니다!!\n");
 			printf("게임이 종료되었습니다.\n");
 			break;
 		}
-
-
 		// 다마고치의 체력,포만감,배변활동정도 가 떠야된다
-		ShowStatus(health,mana,hungry,poo,stress,exp,rewardgold);
+		ShowStatus(health, mana, hungry, poo, stress, exp, rewardgold);
 		ShowChoice();
 		// 입력해달라는 안내 메시지를 출력
-		
-		
+
 		//1~6번 숫자를 입력할 수 있게 입력을 받는다
 		scanf_s("%d", &num1);
-		SwitchSelect1to3(num1);
+		SwitchSelect1to3(num1); // 1~3은 간단하니깐 switch 분기문으로 함수를 만들어 줬다.
 		switch (num1)
 		{
 		case 4: // 산책하기
-		{
-			
-			if (Percent(50)) //0~49니깐 50퍼센트다
-			{
-				printf("===================================================\n");
-				printf("산책 중 적이 나타났습니다!!.\n");
-
-				// 전투 변수 초기화
-				int turnon = 1; // while 문 통제 위한 변수선언
-				int battle_enemyhealth = 100;  // 적 체력변수 선언
-				int battle_enemyattack = 20; // 적 공격력 변수선언
-
-				//while 문 안에 while 문 만들어서 통제할려면 변수가 필요했다
-				while (turnon)
-				{
-					ShowBattle(battle_enemyhealth, health, mana);
-					scanf_s("%d", &num1);
-
-					switch (num1) // 분기문 안에 분기문 만들 수 있었다!!!
-					{
-					case 1: // 공격
-						battle_enemyhealth -= gochiattack;
-						printf("적에게 %d 만큼 피해를 줬습니다!\n", gochiattack);
-
-						if (battle_enemyhealth <= 0) // 적 사망조건
-						{
-							printf("적이 사망했습니다!!.\n");
-							turnon = 0;  // 내부 while 루프 탈출
-							exp += 50;   // 경험치 획득
-							printf("경험치를 %d 얻었습니다!\n", 30);
-							rewardgold += 200;
-							printf("골드를 %d 얻었습니다!\n", 200);
-							stress -= 10;
-							printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-						}
-						break;
-
-					case 2: // 적 사망 조건을 스킬에도 적용 해줘야 적 체력 -되면 사망 판정됨
-						printf("다마고치가 스킬을 사용했습니다!.\n");
-						if (mana < 50) //0으로 하니 타이밍 안맞아서 50으로 맞춤
-						{
-							printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
-							
-						}
-						else
-						{
-							mana -= 50;
-							
-							battle_enemyhealth=AttackAddHealth1(health, gochiattack, battle_enemyhealth);
-							//반드시 값을 초기화 해줘야 적 체력이 깎아진다
-
-						}
-						if (battle_enemyhealth <= 0)
-						{
-							printf("적이 사망했습니다!!.\n");
-							turnon = 0;  // 내부 while 루프 탈출
-							exp += 50;   // 경험치 획득
-							printf("경험치를 %d 얻었습니다!\n", 30);
-							rewardgold += 200;
-							printf("골드를 %d 얻었습니다!\n", 200);
-							stress -= 10;
-							printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-						}
-
-						break;
-
-					case 3: // 도망
-						printf("도망쳤습니다!\n");
-						stress += 10;
-						turnon = 0;  // 내부 while 루프 탈출
-						break;
-
-
-					}
-
-					//적 체력 존재하면 공격함
-					if (battle_enemyhealth > 0)
-					{
-						health -= battle_enemyattack;
-						printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
-						
-						
-						if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
-						{
-							health=AttackAddHealth2(battle_enemyhealth, battle_enemyattack,health);
-						}
-						if (health <= 0)
-						{
-							printf("다마고치가 쓰러졌습니다!\n");
-							turnon = 0;
-							gameon = 0;  // 게임 종료
-						}
-					}
-				}
-			}
-			else
-			{
-				if (stress <= 0)
-				{
-					stress = 0;
-					printf("더이상 스트레스 지수를 내릴 수 없습니다.\n");
-				}
-				else
-				{
-					stress -= 20;
-					printf("스트레스가 산책으로 인해 %d 줄었습니다.\n", 20);
-				}
-			}
-		}
-		break;
-
+			SwitchSelect4(num1);
+			break;
 		case 5: // 터그놀이
-		{
-			
-			if (Percent(60))
-			{
-				printf("===================================================\n");
-				printf("터그놀이 중 적이 나타났습니다!!.\n");
-
-				// while 문 안에 또 while 문 만들어야 전투 상태 창 만들 수 있음
-				int turnon = 1; // while 문 안에 while 문 통제위한 변수선언 및 초기화
-				int battle_enemyhealth = 80;  // 산책과 비교해서 체력 낮다
-				int battle_enemyattack = 30;   // 
-
-				while (turnon)
-				{
-					ShowBattle(battle_enemyhealth, health, mana);
-					scanf_s("%d", &num1);
-
-					switch (num1)
-					{
-					case 1: // 공격
-						battle_enemyhealth -= gochiattack;
-						printf("적에게 %d 만큼 피해를 줬습니다!\n", gochiattack);
-
-						if (battle_enemyhealth <= 0)
-						{
-							printf("적이 사망했습니다!!.\n");
-							turnon = 0;  // while 문 속 while 문 탈출하고 일반 while문으로 감
-							exp += 50;   
-							printf("경험치를 %d 얻었습니다!\n", 20);
-							rewardgold += 200;
-							printf("골드를 %d 얻었습니다!\n", 200);
-							stress -= 10;
-							printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-						}
-						break;
-
-					case 2: // 스킬
-						printf("다마고치가 스킬을 사용했습니다!.\n");
-						if (mana < 50)
-						{
-							printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
-						}
-						else 
-						{	
-							
-							battle_enemyhealth=AttackAddHealth1(health, gochiattack, battle_enemyhealth);
-							//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
-						
-						}
-						if (battle_enemyhealth <= 0)
-						{
-							printf("적이 사망했습니다!!.\n");
-							turnon = 0;  // 내부 while 루프 탈출
-							exp += 50;   // 경험치 획득
-							printf("경험치를 %d 얻었습니다!\n", 30);
-							rewardgold += 200;
-							printf("골드를 %d 얻었습니다!\n", 200);
-							stress -= 10;
-							printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-						}
-
-
-
-						break;
-
-					case 3: // 도망
-						printf("도망쳤습니다!\n");
-						stress += 10;
-						turnon = 0;  // while 문 탈출한다. 만약 0으로 값 초기화 안해주면 도망 못하고 계속 진행됨
-						break;
-
-					
-					}
-
-					// 적 체력이 존재하면 공격함
-					if (battle_enemyhealth > 0)
-					{
-						health -= battle_enemyattack;
-						printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
-						
-						if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
-						{
-							health=AttackAddHealth2(battle_enemyhealth, battle_enemyattack, health);
-						}
-						if (health <= 0)
-						{
-							printf("다마고치가 쓰러졌습니다!\n");
-							turnon = 0;
-							gameon = 0;  // 게임 종료
-						}
-						if (health <= 0)
-						{
-							printf("다마고치가 쓰러졌습니다!\n");
-							turnon = 0;
-							gameon = 0;  // 게임 종료
-						}
-					}
-				}
-			}
-			else
-			{
-				if (stress <= 0)
-				{
-					stress = 0;
-					printf("더이상 스트레스 지수를 내릴 수 없습니다.\n");
-				}
-				else
-				{
-					stress -= 30;
-					printf("스트레스가 터그활동으로 인해 %d 줄었습니다.\n", 30);
-				}
-			}
-		}
-		break;
+			SwitchSelect5(num1);
+			break;
 		case 6:
-		SwitchSelect6(num1); // 그냥 써주면 입력만 먹히고 나머지 기능안먹힘 -> case 6 와 break로 제어해줘야됨
-		break;
+			SwitchSelect6(num1); // 그냥 써주면 입력만 먹히고 나머지 기능안먹힘 -> case 6 와 break로 제어해줘야됨
+			break;
 		case 7:
-		SwitchSelect7(num1); // 그냥 써주면 입력만 먹히고 나머지 기능안먹힘 -> case 6 와 break로 제어해줘야됨
-		break;
-
-		//경험치는 100 * 현재레벨 * 1.2
-		// 레벨업 시스템 추가
-		
-
+			SwitchSelect7(num1); // 그냥 써주면 입력만 먹히고 나머지 기능안먹힘 -> case 6 와 break로 제어해줘야됨
+			break;
 		}
 	}
-	
-	
+
 }
+		
 
 
-
+	
