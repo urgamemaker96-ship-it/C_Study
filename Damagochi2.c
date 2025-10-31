@@ -8,6 +8,130 @@
 //int AttackAddHealth2(int, int,int);
 //int Percent(int);
 //void ShowStatus(int,int,int,int,int,int,int);
+void ShowGuide(); // 바깥라인에다가 함수 선언해줘야 해당 함수 쓸수있다. -> 함수안에 함수 사용할때
+void ShowShop();
+
+
+int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
+int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
+int health = 100;  // 초기값 선언
+int hungry = 50;  // 초기값 선언
+int gochiattack = 40; //적 어카운팅 시스템 만들다 보니 필요한 변수라서 초기화해줌
+int poo = 50; // 배변활동정도
+int num1; // 입력받기위한 변수선언
+int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
+// 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
+// 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
+int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
+int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
+int gameon = 1; //while 문 안에 또 다른 while 문 만들다 보니 기존 while 문 통제가 필요해서 생긴 변수라 선언함
+int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
+
+
+
+
+void SwitchSelect1to3(int num1)
+{
+	switch (num1)
+	{
+	case 1: //1번을 누르면 잠자기를 시도한다.
+		if (health >= Maxhealth)
+		{
+			printf("더이상 잘 필요가 없습니다.\n");
+			stress += 10;
+		}
+		else
+		{
+			health += 10;
+			printf("다마고치의 체력이 %d 증가했습니다\n", 10);
+
+		}
+
+		if (mana >= 100)
+		{
+			printf("더이상 마나가 회복될 수 없습니다.\n");
+			stress += 10;
+		}
+		else
+		{
+			mana += 10;
+			printf("다마고치의 마나가 %d 증가했습니다\n", 10);
+		}
+		break;
+
+	case 2: //2번을 누르면 배변활동이 0이되고
+		poo = 0;
+		printf("다마고치의 배변활동지수가 %d 되었습니다\n", poo);
+		break;
+
+	case 3: //3번을 누르면 포만감이 채워지고 배변지수가 채워진다.
+		if (hungry >= 200)
+		{
+			printf("더이상 먹을 필요가 없습니다.\n");
+		}
+		else
+		{
+			hungry += 20;
+			poo += 20;
+			printf("다마고치의 포만감이 %d 증가했습니다\n", 20);
+		}
+		break;
+
+	}
+}
+void SwitchSelect6(int num1) 
+{
+	switch (num1)
+	{
+	case 6: // 상점 시스템
+		if (rewardgold < 200)
+		{
+			printf("돈이 없어 이용할 수 없습니다!!\n");
+			break;
+		}
+		else
+		{
+			ShowShop();
+			//분기문 안에 분기문 만들 수 있다, 입력 받을 변수 num2로 만드려고 했으나 그럴 필요 없어 num1만 씀, 입력받는건 의미가 없다 하나면 충분하다.
+			scanf_s("%d", &num1);
+			switch (num1)
+			{
+			case 1:
+				rewardgold -= 200;
+				Maxhealth += 100;
+
+				printf("최대체력이 %d 증가하여 %d이 되었습니다.", 100, Maxhealth);
+				break;
+
+			case 2:
+				rewardgold -= 300;
+				gochiattack += 50;
+				printf("공격력이 %d 증가하여 %d이 되었습니다.", 50, gochiattack);
+				break;
+
+
+			case 3:
+				rewardgold -= 400;
+				currentlevel += 1;
+				printf("레벨이 %d 증가하여 %d이 되었습니다.", 1, currentlevel);
+				break;
+			}
+		}
+		break;
+	}
+}
+void SwitchSelect7(int num1) 
+{
+	switch(num1)
+	{
+		case 7:
+			ShowGuide();
+			break;
+	}
+}
+
+
+
 
 //함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
 int AttackAddHealth2(int num1, int num2, int num3)
@@ -87,30 +211,30 @@ void ShowGuide()
 }
 
 
+
+
+
 int main(void)
 {	
-
-	int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
-	int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
-	int health = 100;  // 초기값 선언
-	int hungry = 50;  // 초기값 선언
-	int gochiattack = 40; //적 어카운팅 시스템 만들다 보니 필요한 변수라서 초기화해줌
-	int poo = 50; // 배변활동정도
-	int num1; // 입력받기위한 변수선언
-	int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
-	// 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
-	// 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
-	int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-	int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-	int gameon = 1; //while 문 안에 또 다른 while 문 만들다 보니 기존 while 문 통제가 필요해서 생긴 변수라 선언함
-	int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
 
 
 	// rand() 초기화는 한 번만!
 	srand((unsigned int)time(NULL)); // 여러번 돌릴 필요없다, 프로그램 실행시 한번만 초기화 해줘도됨
 
 	while (gameon) // 반복문 지속
-	{
+	{	
+		//레벨업 조건
+		if (exp >= 100 * currentlevel * 1.2)
+		{
+			currentlevel++;
+			exp = 0;
+			gochiattack += 10;
+			printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
+			printf("공격력이 %d로 증가했습니다!\n", gochiattack);
+		}
+
+
+
 		//배변지수가 100을 달성 시 게임오버 상태
 		if (poo >= 100 || stress >=100)
 		{
@@ -135,54 +259,9 @@ int main(void)
 		
 		//1~6번 숫자를 입력할 수 있게 입력을 받는다
 		scanf_s("%d", &num1);
-
+		SwitchSelect1to3(num1);
 		switch (num1)
 		{
-		case 1: //1번을 누르면 잠자기를 시도한다.
-			if (health >= Maxhealth)
-			{
-				printf("더이상 잘 필요가 없습니다.\n");
-				stress += 10;
-			}
-			else
-			{	
-				health += 10;
-				printf("다마고치의 체력이 %d 증가했습니다\n", 10);
-				
-			}
-
-			if (mana >= 100) 
-			{
-				printf("더이상 마나가 회복될 수 없습니다.\n");
-				stress += 10;
-			}
-			else 
-			{
-				mana += 10;
-				printf("다마고치의 마나가 %d 증가했습니다\n", 10);
-			}
-
-
-			break;
-
-		case 2: //2번을 누르면 배변활동이 0이되고
-			poo = 0;
-			printf("다마고치의 배변활동지수가 %d 되었습니다\n", poo);
-			break;
-
-		case 3: //3번을 누르면 포만감이 채워지고 배변지수가 채워진다.
-			if (hungry >= 200)
-			{
-				printf("더이상 먹을 필요가 없습니다.\n");
-			}
-			else
-			{
-				hungry += 20;
-				poo += 20;
-				printf("다마고치의 포만감이 %d 증가했습니다\n", 20);
-			}
-			break;
-
 		case 4: // 산책하기
 		{
 			
@@ -410,57 +489,16 @@ int main(void)
 			}
 		}
 		break;
+		case 6:
+		SwitchSelect6(num1);
+		break;
+		case 7:		
+		SwitchSelect7(num1);
+		break;
 
-		case 6: // 상점 시스템
-			if (rewardgold < 200) 
-			{
-				printf("돈이 없어 이용할 수 없습니다!!\n");
-				break;
-			}
-			else
-			{
-				ShowShop();
-				//분기문 안에 분기문 만들 수 있다, 입력 받을 변수 num2로 만드려고 했으나 그럴 필요 없어 num1만 씀, 입력받는건 의미가 없다 하나면 충분하다.
-				scanf_s("%d", &num1);
-				switch (num1)
-				{
-				case 1:
-					rewardgold -= 200;
-					Maxhealth += 100;
-					
-					printf("최대체력이 %d 증가하여 %d이 되었습니다.", 100, Maxhealth);
-					break;
-
-				case 2:
-					rewardgold -= 300;
-					gochiattack += 50;
-					printf("공격력이 %d 증가하여 %d이 되었습니다.", 50, gochiattack);
-					break;
-						
-
-				case 3:
-					rewardgold -= 400;
-					currentlevel += 1;
-					printf("레벨이 %d 증가하여 %d이 되었습니다.", 1, currentlevel);
-					break;
-				}
-			}
-		
-		case 7:
-			ShowGuide();
-			break;
-		
 		//경험치는 100 * 현재레벨 * 1.2
 		// 레벨업 시스템 추가
-		if (exp >= 100*currentlevel*1.2)
-		{
-			currentlevel++;
-			exp = 0;
-			gochiattack += 10;
-			printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
-			printf("공격력이 %d로 증가했습니다!\n", gochiattack);
-		}
-
+		
 
 		}
 	}
