@@ -490,10 +490,10 @@ int main(void)
 		}
 		break;
 		case 6:
-		SwitchSelect6(num1);
+		SwitchSelect6(num1); // 그냥 써주면 입력만 먹히고 나머지 기능안먹힘 -> case 6 와 break로 제어해줘야됨
 		break;
-		case 7:		
-		SwitchSelect7(num1);
+		case 7:
+		SwitchSelect7(num1); // 그냥 써주면 입력만 먹히고 나머지 기능안먹힘 -> case 6 와 break로 제어해줘야됨
 		break;
 
 		//경험치는 100 * 현재레벨 * 1.2
