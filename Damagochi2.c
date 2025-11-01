@@ -8,6 +8,7 @@ int AttackAddHealth1(int, int, int);
 int AttackAddHealth2(int, int, int);
 void ShowStatus(int, int, int, int, int, int, int);
 void ShowShop();
+void ShowChoice();
 void ShowBattle(int, int, int);
 int Percent(int);
 void LevelUpRule();
@@ -41,87 +42,6 @@ void SelectTug();
 void SelectShop();
 
 void SelectGuide();
-
-
-
-
-//함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
-int AttackAddHealth2(int num1, int num2, int num3)
-{
-	int totalDamage = num1 + num2;
-	printf("적이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", totalDamage);
-	printf("다마고치에게 %d의 피해를 입혔습니다!\n", totalDamage);
-	return num3 - totalDamage;
-}
-
-int AttackAddHealth1(int num1, int num2, int num3)
-{
-	int totalDamage = num1 + num2;
-	printf("다마고치가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", totalDamage);
-	printf("적에게 %d의 피해를 입혔습니다!\n", totalDamage);
-	return num3 - totalDamage;
-
-}
-int Percent(int num1) // 확률조건을 출력해주는 함수
-{
-	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
-	//0과 1로 판단 -> 조건이 참이면 실행되는거다!
-}
-void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7)
-{
-	printf("===================================================\n");
-	printf("상태창\n");
-	printf("체력: %d\n", num1);
-	printf("마나: %d\n", num2);
-	printf("포만감: %d\n", num3);
-	printf("화장실: %d\n", num4);
-	printf("스트레스: %d\n", num5);
-	printf("경험치: %d\n", num6);
-	printf("현재골드: %d\n", num7);
-	printf("===================================================\n");
-}
-void ShowChoice()
-{
-	printf("\n=======================================================================================\n");
-	printf("1.잠자기 2.응가하기 3.밥주기 4.산책하기 5.터그놀이 6.상점 7.다마고치 가이드라인\n");
-	printf("=======================================================================================\n");
-	printf("입력: ");
-
-}
-void ShowBattle(int num1, int num2, int num3)
-{
-	printf("\n----- 전투 -----\n");
-	printf("적 체력: %d\n", num1);
-	printf("내 체력: %d\n", num2);
-	printf("내 마나: %d\n", num3);
-	printf("원하는 숫자를 눌러 대응 하십쇼\n");
-	printf("1.공격 2.스킬 3.도망\n");
-	printf("입력: ");
-}
-void ShowShop()
-{
-	printf("원하는 물품을 구입하여 주십쇼!!\n");
-	// 입력해달라는 안내 메시지를 출력
-	printf("=========================================================================\n");
-	printf("1.최대체력증가포션:200골드 2.공격력증가포션:300골드 3.레벨업포션:400골드\n");
-	printf("=========================================================================\n");
-	printf("입력: ");
-
-}
-
-
-void LevelUpRule()
-{
-	if (exp >= 100 * currentlevel * 1.2)
-	{
-		currentlevel++;
-		exp = 0;
-		gochiattack += 10;
-		printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
-		printf("공격력이 %d로 증가했습니다!\n", gochiattack);
-	}
-
-}
 
 
 int main(void)
@@ -502,4 +422,82 @@ void SelectGuide()
 	printf("다마고치는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n");
 	printf("다마고치는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n");
 	printf("다마고치는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n");
+}
+
+//함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
+int AttackAddHealth2(int num1, int num2, int num3)
+{
+	int totalDamage = num1 + num2;
+	printf("적이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", totalDamage);
+	printf("다마고치에게 %d의 피해를 입혔습니다!\n", totalDamage);
+	return num3 - totalDamage;
+}
+
+int AttackAddHealth1(int num1, int num2, int num3)
+{
+	int totalDamage = num1 + num2;
+	printf("다마고치가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", totalDamage);
+	printf("적에게 %d의 피해를 입혔습니다!\n", totalDamage);
+	return num3 - totalDamage;
+
+}
+int Percent(int num1) // 확률조건을 출력해주는 함수
+{
+	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
+	//0과 1로 판단 -> 조건이 참이면 실행되는거다!
+}
+void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7)
+{
+	printf("===================================================\n");
+	printf("상태창\n");
+	printf("체력: %d\n", num1);
+	printf("마나: %d\n", num2);
+	printf("포만감: %d\n", num3);
+	printf("화장실: %d\n", num4);
+	printf("스트레스: %d\n", num5);
+	printf("경험치: %d\n", num6);
+	printf("현재골드: %d\n", num7);
+	printf("===================================================\n");
+}
+void ShowChoice()
+{
+	printf("\n=======================================================================================\n");
+	printf("1.잠자기 2.응가하기 3.밥주기 4.산책하기 5.터그놀이 6.상점 7.다마고치 가이드라인\n");
+	printf("=======================================================================================\n");
+	printf("입력: ");
+
+}
+void ShowBattle(int num1, int num2, int num3)
+{
+	printf("\n----- 전투 -----\n");
+	printf("적 체력: %d\n", num1);
+	printf("내 체력: %d\n", num2);
+	printf("내 마나: %d\n", num3);
+	printf("원하는 숫자를 눌러 대응 하십쇼\n");
+	printf("1.공격 2.스킬 3.도망\n");
+	printf("입력: ");
+}
+void ShowShop()
+{
+	printf("원하는 물품을 구입하여 주십쇼!!\n");
+	// 입력해달라는 안내 메시지를 출력
+	printf("=========================================================================\n");
+	printf("1.최대체력증가포션:200골드 2.공격력증가포션:300골드 3.레벨업포션:400골드\n");
+	printf("=========================================================================\n");
+	printf("입력: ");
+
+}
+
+
+void LevelUpRule()
+{
+	if (exp >= 100 * currentlevel * 1.2)
+	{
+		currentlevel++;
+		exp = 0;
+		gochiattack += 10;
+		printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
+		printf("공격력이 %d로 증가했습니다!\n", gochiattack);
+	}
+
 }
