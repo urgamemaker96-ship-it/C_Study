@@ -4,30 +4,7 @@
 
 
 //함수 선언들 main 함수 위에서 함수 정의 선언해줬기 때문에 함수선언 따로 할 필요없다.
-int AttackAddHealth1(int, int, int);
-int AttackAddHealth2(int, int, int);
-void ShowStatus(int, int, int, int, int, int, int);
-void ShowShop();
-void ShowChoice();
-void ShowBattle(int, int, int);
-int Percent(int);
-void LevelUpRule();
-
-int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
-int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
-int health = 100;  // 초기값 선언
-int hungry = 50;  // 초기값 선언
-int gochiattack = 40; //적 어카운팅 시스템 만들다 보니 필요한 변수라서 초기화해줌
-int poo = 50; // 배변활동정도
-int num1; // 입력받기위한 변수선언
-int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
-// 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
-// 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
-int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
-
-
+#pragma region  Select
 void SelectSleep();
 
 void SelectPoop();
@@ -41,17 +18,48 @@ void SelectTug();
 void SelectShop();
 
 void SelectGuide();
+#pragma endregion
 
-void Init();
+#pragma region Show
+void ShowStatus();
+void ShowShop();
+void ShowChoice();
+void ShowBattle(int, int, int);
+#pragma endregion
 
-int IsGameOver();
-
+#pragma region Util
 int UserInput();
+int Percent(int);
+#pragma endregion
 
+#pragma region GameStatus
+void Init();
+int IsGameOver();
 void Action(int);
+void LevelUpRule();
+#pragma endregion
+
+#pragma region Battle
+int AttackAddHealth1(int, int, int);
+int AttackAddHealth2(int, int, int);
+#pragma endregion
+
+// 전역 변수 선언
+int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
+int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
+int health = 100;  // 초기값 선언
+int hungry = 50;  // 초기값 선언
+int gochiattack = 40; //적 어카운팅 시스템 만들다 보니 필요한 변수라서 초기화해줌
+int poo = 50; // 배변활동정도
+int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
+int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
+int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
+int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
 
 int main(void)
 {
+	int mainInput;
+
 	// 게임 초기화
 	Init();
 
@@ -61,19 +69,18 @@ int main(void)
 		LevelUpRule();
 		
 		// 상태 정보 출력
-		ShowStatus(health, mana, hungry, poo, stress, exp, rewardgold);
+		ShowStatus();
 
 		// 유저 입력 메뉴 출력
 		ShowChoice();
 
 		// 유저 입력 대기
-		num1 = UserInput();// 1
+		mainInput = UserInput();
 
 		// 유저 입력에 따른 액션		
-		Action(num1);
+		Action(mainInput);
 	}
 }
-
 
 void SelectSleep()
 {
@@ -410,17 +417,17 @@ int Percent(int num1) // 확률조건을 출력해주는 함수
 	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
 	//0과 1로 판단 -> 조건이 참이면 실행되는거다!
 }
-void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7)
+void ShowStatus()
 {
 	printf("===================================================\n");
 	printf("상태창\n");
-	printf("체력: %d\n", num1);
-	printf("마나: %d\n", num2);
-	printf("포만감: %d\n", num3);
-	printf("화장실: %d\n", num4);
-	printf("스트레스: %d\n", num5);
-	printf("경험치: %d\n", num6);
-	printf("현재골드: %d\n", num7);
+	printf("체력: %d\n", health);
+	printf("마나: %d\n", mana);
+	printf("포만감: %d\n", hungry);
+	printf("화장실: %d\n", poo);
+	printf("스트레스: %d\n", stress);
+	printf("경험치: %d\n", exp);
+	printf("현재골드: %d\n", rewardgold);
 	printf("===================================================\n");
 }
 void ShowChoice()
