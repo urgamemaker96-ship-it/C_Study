@@ -11,6 +11,7 @@ void ShowGuide(); // 바깥라인에다가 함수 선언해줘야 해당 함수 쓸수있다. -> 함수�
 void ShowShop();
 void ShowBattle(int, int, int);
 int Percent(int);
+void LevelUpRule();
 
 int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
 int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
@@ -428,6 +429,19 @@ void ShowGuide()
 	printf("다마고치는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n");
 }
 
+void LevelUpRule() 
+{
+	if (exp >= 100 * currentlevel * 1.2)
+	{
+		currentlevel++;
+		exp = 0;
+		gochiattack += 10;
+		printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
+		printf("공격력이 %d로 증가했습니다!\n", gochiattack);
+	}
+
+}
+
 
 int main(void)
 {
@@ -437,23 +451,16 @@ int main(void)
 	while (gameon) // 반복문 지속
 	{
 		//레벨업 조건
-		if (exp >= 100 * currentlevel * 1.2)
-		{
-			currentlevel++;
-			exp = 0;
-			gochiattack += 10;
-			printf("\n 레벨 업! 현재 레벨: %d\n", currentlevel);
-			printf("공격력이 %d로 증가했습니다!\n", gochiattack);
-		}
-		//배변지수가 100을 달성 시 게임오버 상태
+		LevelUpRule();
+		//배변지수가 100을 달성 시 게임오버 상태 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 		if (poo >= 100 || stress >= 100)
 		{
 			printf("다마고치가 병에 걸렸습니다.\n");
 			printf("게임이 종료되었습니다.\n");
 			break;
 		}
-		//승리 조건달아주기
-		if (currentlevel == 10)
+		//승리 조건달아주기 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
+		if (currentlevel == 10) 
 		{
 			printf("다마고치가 완전히 성장했습니다!!\n");
 			printf("게임이 종료되었습니다.\n");
