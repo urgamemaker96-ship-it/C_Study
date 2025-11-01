@@ -4,12 +4,12 @@
 
 
 //함수 선언들 main 함수 위에서 함수 정의 선언해줬기 때문에 함수선언 따로 할 필요없다.
-int AttackAddHealth1(int, int,int);
-int AttackAddHealth2(int, int,int);
-void ShowStatus(int,int,int,int,int,int,int);
+int AttackAddHealth1(int, int, int);
+int AttackAddHealth2(int, int, int);
+void ShowStatus(int, int, int, int, int, int, int);
 void ShowGuide(); // 바깥라인에다가 함수 선언해줘야 해당 함수 쓸수있다. -> 함수안에 함수 사용할때
 void ShowShop();
-void ShowBattle(int,int,int);
+void ShowBattle(int, int, int);
 int Percent(int);
 
 int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
@@ -80,7 +80,7 @@ void SwitchSelect1to3(int num1)
 	}
 }
 
-void SwitchSelect4(int num1) 
+void SwitchSelect4(int num1)
 {
 	if (Percent(50)) //0~49니깐 50퍼센트다
 	{
@@ -190,7 +190,7 @@ void SwitchSelect4(int num1)
 	}
 }
 
-void SwitchSelect5(int num1) 
+void SwitchSelect5(int num1)
 {
 	if (Percent(60))
 	{
@@ -308,15 +308,13 @@ void SwitchSelect5(int num1)
 
 
 
-void SwitchSelect6(int num1) 
+void SwitchSelect6(int num1)
 {
-	switch (num1)
-	{
-	case 6: // 상점 시스템
+	
 		if (rewardgold < 200)
 		{
 			printf("돈이 없어 이용할 수 없습니다!!\n");
-			break;
+			
 		}
 		else
 		{
@@ -346,17 +344,14 @@ void SwitchSelect6(int num1)
 				break;
 			}
 		}
-		break;
-	}
+		
+	
 }
-void SwitchSelect7(int num1) 
+void SwitchSelect7(int num1)
 {
-	switch(num1)
-	{
-		case 7:
-			ShowGuide();
-			break;
-	}
+
+		ShowGuide();
+	
 }
 
 
@@ -380,12 +375,12 @@ int AttackAddHealth1(int num1, int num2, int num3)
 
 }
 int Percent(int num1) // 확률조건을 출력해주는 함수
-{	
+{
 	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
-								//0과 1로 판단 -> 조건이 참이면 실행되는거다!
+	//0과 1로 판단 -> 조건이 참이면 실행되는거다!
 }
-void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7) 
-{	
+void ShowStatus(int num1, int num2, int num3, int num4, int num5, int num6, int num7)
+{
 	printf("===================================================\n");
 	printf("상태창\n");
 	printf("체력: %d\n", num1);
@@ -405,7 +400,7 @@ void ShowChoice()
 	printf("입력: ");
 
 }
-void ShowBattle(int num1, int num2, int num3) 
+void ShowBattle(int num1, int num2, int num3)
 {
 	printf("\n----- 전투 -----\n");
 	printf("적 체력: %d\n", num1);
@@ -415,7 +410,7 @@ void ShowBattle(int num1, int num2, int num3)
 	printf("1.공격 2.스킬 3.도망\n");
 	printf("입력: ");
 }
-void ShowShop() 
+void ShowShop()
 {
 	printf("원하는 물품을 구입하여 주십쇼!!\n");
 	// 입력해달라는 안내 메시지를 출력
@@ -425,7 +420,7 @@ void ShowShop()
 	printf("입력: ");
 
 }
-void ShowGuide() 
+void ShowGuide()
 {
 	printf("다마고치는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n");
 	printf("다마고치는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n");
@@ -490,7 +485,7 @@ int main(void)
 	}
 
 }
-		
 
 
-	
+
+
