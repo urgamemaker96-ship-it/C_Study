@@ -25,6 +25,7 @@ void ShowStatus();
 void ShowShop();
 void ShowChoice();
 void ShowBattle(int, int, int);
+void ShowDamage(int, int);
 #pragma endregion
 
 #pragma region Util
@@ -40,8 +41,8 @@ void LevelUpRule();
 #pragma endregion
 
 #pragma region Battle
-int AttackAddHealth1(int, int, int);
-int AttackAddHealth2(int, int, int);
+int TakeDamage(int, int);
+
 #pragma endregion
 
 // 전역 변수 선언
@@ -150,7 +151,7 @@ void SelectWalk()
 			switch (userInput) // 분기문 안에 분기문 만들 수 있었다!!!
 			{
 			case 1: // 공격
-				battle_enemyhealth -= gochiattack;
+				battle_enemyhealth = TakeDamage(gochiattack, battle_enemyhealth);
 				printf("적에게 %d 만큼 피해를 줬습니다!\n", gochiattack);
 
 				if (battle_enemyhealth <= 0) // 적 사망조건
@@ -177,7 +178,8 @@ void SelectWalk()
 				{
 					mana -= 50;
 
-					battle_enemyhealth = AttackAddHealth1(health, gochiattack, battle_enemyhealth);
+					battle_enemyhealth = TakeDamage(health + gochiattack, battle_enemyhealth);
+					ShowDamage(1, health + gochiattack);
 					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
 
 				}
@@ -213,7 +215,8 @@ void SelectWalk()
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 				{
-					health = AttackAddHealth2(battle_enemyhealth, battle_enemyattack, health);
+					health = TakeDamage(battle_enemyhealth + battle_enemyattack, health);
+					ShowDamage(2, battle_enemyhealth + battle_enemyattack);
 				}
 				if (health <= 0)
 				{
@@ -259,7 +262,7 @@ void SelectTug()
 			switch (userInput)
 			{
 			case 1: // 공격
-				battle_enemyhealth -= gochiattack;
+				battle_enemyhealth = TakeDamage(gochiattack, battle_enemyhealth);
 				printf("적에게 %d 만큼 피해를 줬습니다!\n", gochiattack);
 
 				if (battle_enemyhealth <= 0)
@@ -284,7 +287,8 @@ void SelectTug()
 				else
 				{
 
-					battle_enemyhealth = AttackAddHealth1(health, gochiattack, battle_enemyhealth);
+					battle_enemyhealth = TakeDamage(health + gochiattack, battle_enemyhealth);
+					ShowDamage(1, health + gochiattack);
 					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
 
 				}
@@ -321,7 +325,8 @@ void SelectTug()
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 				{
-					health = AttackAddHealth2(battle_enemyhealth, battle_enemyattack, health);
+					health = TakeDamage(battle_enemyhealth + battle_enemyattack, health);
+					ShowDamage(2, battle_enemyhealth + battle_enemyattack);
 				}
 				if (health <= 0)
 				{
@@ -396,21 +401,11 @@ void SelectGuide()
 }
 
 //함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
-int AttackAddHealth2(int num1, int num2, int num3)
-{
-	int totalDamage = num1 + num2;
-	printf("적이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", totalDamage);
-	printf("다마고치에게 %d의 피해를 입혔습니다!\n", totalDamage);
-	return num3 - totalDamage;
-}
 
-int AttackAddHealth1(int num1, int num2, int num3)
-{
-	int totalDamage = num1 + num2;
-	printf("다마고치가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", totalDamage);
-	printf("적에게 %d의 피해를 입혔습니다!\n", totalDamage);
-	return num3 - totalDamage;
 
+int TakeDamage(int damage, int health)
+{
+	return health - damage;
 }
 int Percent(int num1) // 확률조건을 출력해주는 함수
 {
@@ -536,6 +531,22 @@ void Action(int num1)
 		break;
 	case 7:
 		SelectGuide();
+		break;
+	}
+}
+
+void ShowDamage(int target, int damage)
+{
+	switch (target)
+	{
+	case 1: // 다마고치 -> 적
+		printf("다마고치가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damage);
+		printf("적에게 %d의 피해를 입혔습니다!\n", damage);
+		break;
+
+	case 2: // 적 -> 다마고치
+		printf("적이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damage);
+		printf("다마고치에게 %d의 피해를 입혔습니다!\n", damage);
 		break;
 	}
 }
