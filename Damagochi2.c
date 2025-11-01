@@ -45,20 +45,25 @@ int TakeDamage(int, int);
 
 #pragma endregion
 
-// 전역 변수 선언
-int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
-int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
-int health = 100;  // 초기값 선언
-int hungry = 50;  // 초기값 선언
-int gochiattack = 40; //적 어카운팅 시스템 만들다 보니 필요한 변수라서 초기화해줌
-int poo = 50; // 배변활동정도
-int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
-int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
+
+
 
 int main(void)
-{
+{	
+	//모든 변수 지역변수로 설정해서 포인터 이용해가지고 잘 작동하는지 테스트 해보기!
+	int mana = 100; // 마나, 스킬 함수만들시 다마고치한테 필요
+	int Maxhealth = 100; // 상점구현 시 필요해서 숫자 증감이 아니라 새로운 변수선언함
+	int health = 100;  // 초기값 선언
+	int hungry = 50;  // 초기값 선언
+	int gochiattack = 40; //적 어카운팅 시스템 만들다 보니 필요한 변수라서 초기화해줌
+	int poo = 50; // 배변활동정도
+	int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
+	int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
+	int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
+	int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
+
+
+
 	int mainInput;
 
 	// 게임 초기화
