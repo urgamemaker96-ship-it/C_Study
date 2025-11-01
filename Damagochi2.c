@@ -25,7 +25,6 @@ int stress = 40; // 스트레스 지수, 사망판정 위해 변수 선언
 // 적 어카운팅 시스템 만들다보니 필요한 변수라서 초기화 해줌
 int exp = 0; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
 int currentlevel = 1; // 레벨업 시스템 만들다 보니 필요한 변수라서 초기화 해줌
-int isGameOver = 0; //while 문 안에 또 다른 while 문 만들다 보니 기존 while 문 통제가 필요해서 생긴 변수라 선언함
 int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
 
 
@@ -45,7 +44,7 @@ void SelectGuide();
 
 void Init();
 
-void CheckGameOver();
+int IsGameOver();
 
 int UserInput();
 
@@ -56,12 +55,8 @@ int main(void)
 	// 게임 초기화
 	Init();
 
-	while (!isGameOver) // 반복문 지속
+	while (!IsGameOver()) // 반복문 지속
 	{
-		// 게임 오버 상태 체크
-		CheckGameOver();
-		if (isGameOver == 1) break;
-
 		//레벨업 상태 체크
 		LevelUpRule();
 		
@@ -72,7 +67,7 @@ int main(void)
 		ShowChoice();
 
 		// 유저 입력 대기
-		num1 = UserInput();
+		num1 = UserInput();// 1
 
 		// 유저 입력에 따른 액션		
 		Action(num1);
@@ -475,28 +470,30 @@ void Init()
 	srand((unsigned int)time(NULL)); // 여러번 돌릴 필요없다, 프로그램 실행시 한번만 초기화 해줘도됨
 }
 
-void CheckGameOver()
+int IsGameOver()
 {
 	//배변지수가 100을 달성 시 게임오버 상태 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (poo >= 100 || stress >= 100)
 	{
 		printf("다마고치가 병에 걸렸습니다.\n");
 		printf("게임이 종료되었습니다.\n");
-		isGameOver = 1;  // 게임 종료
+		return 1; // 게임 종료
 	}
 	//승리 조건달아주기 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (currentlevel == 10)
 	{
 		printf("다마고치가 완전히 성장했습니다!!\n");
 		printf("게임이 종료되었습니다.\n");
-		isGameOver = 1;  // 게임 종료
+		return 1;  // 게임 종료
 	}
 	// 다마고치 사망
 	if (health <= 0)
 	{
 		printf("게임이 종료되었습니다.\n");
-		isGameOver = 1;  // 게임 종료
+		return 1; // 게임 종료
 	}
+
+	return 0;
 }
 
 int UserInput()
