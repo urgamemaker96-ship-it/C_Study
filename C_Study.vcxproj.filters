@@ -24,6 +24,12 @@
     <ClCompile Include="Damagochi2.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Test.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pointertest.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Damagochi.txt" />
