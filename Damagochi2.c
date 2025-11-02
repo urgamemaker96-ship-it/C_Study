@@ -15,7 +15,7 @@ void SelectGuide();
 #pragma endregion
 
 #pragma region Show
-void ShowStatus(int*, int*, int*, int*, int*, int*, int*);
+void ShowStatus(int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void ShowShop();
 void ShowChoice();
 void ShowBattle(int, int*, int*);
@@ -25,6 +25,9 @@ void ShowDamage(int, int);
 #pragma region Util
 int UserInput();
 int Percent(int);
+void UserNameInput(char*, int);
+void DamagochiNameInput(char*, int);
+
 #pragma endregion
 
 #pragma region GameStatus
@@ -61,9 +64,13 @@ int main(void)
 	int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
 
 	int mainInput;
+	char name[20]; // 유저이름 받기위한 초기값 설정
+	char damaname[20]; // 다마고치 이름 받기위한 초기값 설정
 
 	// 게임 초기화
 	Init();
+	UserNameInput(name,sizeof(name)); //유저 이름을 생성한다
+	DamagochiNameInput(damaname, sizeof(damaname));//다마고치 이름을 생성한다
 
 	while (!IsGameOver(&poo, &stress, &currentlevel, &health)) // 반복문 지속
 	{
@@ -71,7 +78,7 @@ int main(void)
 		LevelUpRule(&exp, &currentlevel, &gochiattack);
 		
 		// 상태 정보 출력
-		ShowStatus(&health, &mana, &hungry, &poo, &stress, &exp, &rewardgold);
+		ShowStatus(&health, &mana, &hungry, &poo, &stress, &exp, &rewardgold,name,damaname);
 
 		// 유저 입력 메뉴 출력
 		ShowChoice();
@@ -422,10 +429,12 @@ int Percent(int num1) // 확률조건을 출력해주는 함수
 	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
 	//0과 1로 판단 -> 조건이 참이면 실행되는거다!
 }
-void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold)
+void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold,char* name, char* damaname)
 {
 	printf("===================================================\n");
 	printf("상태창\n");
+	printf("다마고치 주인의 이름은 : %s\n",name ); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("다마고치 이름은 : %s\n",damaname); // 어차피 배열은 포인터라 &안적어도된다.
 	printf("체력: %d\n", *health);
 	printf("마나: %d\n", *mana);
 	printf("포만감: %d\n", *hungry);
@@ -516,6 +525,28 @@ int UserInput()
 	scanf_s("%d", &inputNum);
 	return inputNum;
 }
+
+void UserNameInput(char* name, int size)
+{
+	
+	printf("다마고치의 주인이 될 본인의 이름을 입력해주세요 : ");
+	scanf_s("%s", name,size); // size안달아 주면 오류 남 -> 찾아보니 버퍼 오류라고 하더라... 좀더 공부필요
+	printf("\n입력하신 이름은 : %s 입니다\n", name);
+	
+
+}
+
+void DamagochiNameInput(char* damaname, int size)
+{
+	
+	printf("\n다마고치의 이름을 입력해주세요 : ");
+	scanf_s("%s",damaname, size); // size안달아 주면 오류 남 -> 찾아보니 버퍼 오류라고 하더라... 좀더 공부필요
+	printf("\n입력하신 이름은 : %s 입니다\n", damaname);
+	
+}
+
+
+
 
 void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* poo, int* hungry, int* gochiattack,int* exp, int* rewardgold, int* currentlevel)
 {	//전부 이중포인터 문제 때문에 파라미터변수 앞에 &안달아준거다.
