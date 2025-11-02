@@ -531,7 +531,7 @@ void UserNameInput(char* name, int size)
 {
 	
 	printf("다마고치의 주인이 될 본인의 이름을 입력해주세요 : ");
-	scanf_s("%s", name,size); // size안달아 주면 오류 남 -> 찾아보니 버퍼 오류라고 하더라... 좀더 공부필요
+	scanf_s("%s", name,size); // scanf_s("%s", name,size); 오류로 확인되며 3번째에 반드시 버퍼크기를 적어줘야지 오류를 줄일 수 있기 때문에 입력이 강제된다.
 	printf("\n입력하신 이름은 : %s 입니다\n", name);
 	
 
@@ -541,7 +541,7 @@ void DamagochiNameInput(char* damaname, int size)
 {
 	
 	printf("\n다마고치의 이름을 입력해주세요 : ");
-	scanf_s("%s",damaname, size); // size안달아 주면 오류 남 -> 찾아보니 버퍼 오류라고 하더라... 좀더 공부필요
+	scanf_s("%s",damaname, size); // scanf_s("%s", name,size); 오류로 확인되며 3번째에 반드시 버퍼크기를 적어줘야지 오류를 줄일 수 있기 때문에 입력이 강제된다.
 	printf("\n입력하신 이름은 : %s 입니다\n", damaname);
 	
 }
@@ -586,7 +586,7 @@ void ShowDamage(char* damaname, int damage, int turn)
 		printf("%s가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damaname, damage);
 		printf("적에게 %d의 피해를 입혔습니다!\n", damage);
 	}
-
+	
 	 // 적 -> 다마고치
 	else
 	{
