@@ -8,8 +8,8 @@
 void SelectSleep(int*,int*,int*,int*);
 void SelectPoop(int*);
 void SelectEat(int*, int*);
-void SelectWalk(int*, int*, int*, int*, int*, int*,char*);
-void SelectTug(int*, int*, int*, int*, int*, int*,char*);
+void SelectWalk(int*, int*, int*, int*, int*, int*,char*,char*);
+void SelectTug(int*, int*, int*, int*, int*, int*,char*, char*);
 void SelectShop(int*, int*, int*, int*);
 void SelectGuide();
 #pragma endregion
@@ -19,7 +19,7 @@ void ShowStatus(int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void ShowShop();
 void ShowChoice();
 void ShowBattle(int, int*, int*);
-void ShowDamage(char*, int,int);
+void ShowDamage(char*, char*, int,int);
 #pragma endregion
 
 #pragma region Util
@@ -33,7 +33,7 @@ void DamagochiNameInput(char*, int);
 #pragma region GameStatus
 void Init();
 int IsGameOver(int*, int*, int*, int*);
-void Action(int, int*, int*, int*, int*, int*, int*, int*, int*, int*, int*,char*);
+void Action(int, int*, int*, int*, int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void LevelUpRule(int*, int*, int*);
 #pragma endregion
 
@@ -66,6 +66,7 @@ int main(void)
 	int mainInput;
 	char name[20]; // 유저이름 받기위한 초기값 설정
 	char damaname[20]; // 다마고치 이름 받기위한 초기값 설정
+	char enemyname[20] = "오후의태양단";
 
 	// 게임 초기화
 	Init();
@@ -87,7 +88,7 @@ int main(void)
 		mainInput = UserInput();
 
 		// 유저 입력에 따른 액션		
-		Action(mainInput,&health, &Maxhealth, &stress, &mana, &poo, &hungry, &gochiattack, &exp, &rewardgold, &currentlevel,damaname);
+		Action(mainInput,&health, &Maxhealth, &stress, &mana, &poo, &hungry, &gochiattack, &exp, &rewardgold, &currentlevel,damaname, enemyname);
 	}
 }
 
@@ -137,13 +138,13 @@ void SelectEat(int* hungry,int* poo)
 	}
 }
 
-void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold,int* stress,char* damaname)
+void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold,int* stress,char* damaname,char* enemyname)
 {
 	int userInput;
 	if (Percent(50)) //0~49니깐 50퍼센트다
 	{
 		printf("===================================================\n");
-		printf("산책 중 적이 나타났습니다!!.\n");
+		printf("산책 중 %s이 나타났습니다!!.\n",enemyname);
 
 		// 전투 변수 초기화
 		int turnon = 1; // while 문 통제 위한 변수선언
@@ -164,11 +165,11 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			{
 			case 1: // 공격
 				battle_enemyhealth = TakeDamage(*gochiattack, battle_enemyhealth); //이중포인터 문제 생겨서 TakeDamage 함수와 ShowDamage 함수는 포인터 타입으로 선언안함
-				printf("적에게 %d 만큼 피해를 줬습니다!\n", *gochiattack);
+				printf("%s에게 %d 만큼 피해를 줬습니다!\n",enemyname, *gochiattack);
 
 				if (battle_enemyhealth <= 0) // 적 사망조건
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -193,13 +194,13 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					
 					int totalDamage = *health + *gochiattack; // ShowDamage 함수 자료형에 맞는 파라미터 사용 위해서 새로운 변수 맞춰줌
 					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
-					ShowDamage(damaname, totalDamage,1); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
+					ShowDamage(damaname,enemyname, totalDamage,1); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
 					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
 
 				}
 				if (battle_enemyhealth <= 0)
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -224,7 +225,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			if (battle_enemyhealth > 0)
 			{
 				*health -= battle_enemyattack;
-				printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
+				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname,battle_enemyattack);
 
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
@@ -232,7 +233,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					//-> 파라미터 타입에 맞지않는*변수 라고해도 *변수 뜻은 해당 변수의 주소에 있는 값이라는 뜻이다.
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
 					*health = TakeDamage(totalEnemyDagame, *health);
-					ShowDamage(damaname, totalEnemyDagame,2);
+					ShowDamage(damaname, enemyname,totalEnemyDagame,2);
 				}
 				if (*health <= 0)
 				{
@@ -257,13 +258,13 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 	}
 }
 
-void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress,char* damaname)
+void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress,char* damaname,char* enemyname)
 {
 	int userInput;
 	if (Percent(60))
 	{
 		printf("===================================================\n");
-		printf("터그놀이 중 적이 나타났습니다!!.\n");
+		printf("터그놀이 중 %s이 나타났습니다!!.\n");
 
 		// while 문 안에 또 while 문 만들어야 전투 상태 창 만들 수 있음
 		int turnon = 1; // while 문 안에 while 문 통제위한 변수선언 및 초기화
@@ -279,11 +280,11 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			{
 			case 1: // 공격
 				battle_enemyhealth = TakeDamage(*gochiattack, battle_enemyhealth);
-				printf("적에게 %d 만큼 피해를 줬습니다!\n", *gochiattack);
+				printf("%s에게 %d 만큼 피해를 줬습니다!\n",enemyname, *gochiattack);
 
 				if (battle_enemyhealth <= 0)
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // while 문 속 while 문 탈출하고 일반 while문으로 감
 					*exp += 50;
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -305,13 +306,13 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 					
 					int totalDamage = *health + *gochiattack;
 					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
-					ShowDamage(damaname, totalDamage,2);
+					ShowDamage(damaname, enemyname, totalDamage,2);
 					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
 
 				}
 				if (battle_enemyhealth <= 0)
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -338,13 +339,13 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			if (battle_enemyhealth > 0)
 			{
 				*health -= battle_enemyattack;
-				printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
+				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n",enemyname, battle_enemyattack);
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 				{
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
 					*health = TakeDamage(totalEnemyDagame, *health);
-					ShowDamage(damaname, totalEnemyDagame,2);
+					ShowDamage(damaname, enemyname, totalEnemyDagame,2);
 				}
 				if (*health <= 0)
 				{
@@ -549,7 +550,7 @@ void DamagochiNameInput(char* damaname, int size)
 
 
 
-void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* poo, int* hungry, int* gochiattack,int* exp, int* rewardgold, int* currentlevel,char* damaname)
+void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* poo, int* hungry, int* gochiattack,int* exp, int* rewardgold, int* currentlevel,char* damaname,char* enemyname)
 {	//전부 이중포인터 문제 때문에 파라미터변수 앞에 &안달아준거다.
 	switch (num1)
 	{
@@ -563,10 +564,10 @@ void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* p
 		SelectEat(hungry, poo);
 		break;
 	case 4:
-		SelectWalk(health, mana, gochiattack, exp, rewardgold, stress,damaname);
+		SelectWalk(health, mana, gochiattack, exp, rewardgold, stress,damaname,enemyname);
 		break;
 	case 5:
-		SelectTug(health, mana, gochiattack, exp, rewardgold, stress,damaname);
+		SelectTug(health, mana, gochiattack, exp, rewardgold, stress,damaname,enemyname);
 		break;
 	case 6:
 		SelectShop(rewardgold, Maxhealth, gochiattack, currentlevel);
@@ -577,20 +578,20 @@ void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* p
 	}
 }
 
-void ShowDamage(char* damaname, int damage, int turn)
+void ShowDamage(char* damaname, char* enemyname, int damage, int turn)
 {
 	
 	if (turn % 2 == 1)
 	{
 		// 다마고치 -> 적
 		printf("%s가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damaname, damage);
-		printf("적에게 %d의 피해를 입혔습니다!\n", damage);
+		printf("%s에게 %d의 피해를 입혔습니다!\n", enemyname,damage);
 	}
 	
 	 // 적 -> 다마고치
 	else
 	{
-		printf("적이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damage);
+		printf("%s이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", enemyname, damage);
 		printf("%s에게 %d의 피해를 입혔습니다!\n", damaname, damage);
 	}
 	
