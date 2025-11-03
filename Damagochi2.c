@@ -5,13 +5,13 @@
 
 //함수 선언들 main 함수 위에서 함수 정의 선언해줬기 때문에 함수선언 따로 할 필요없다.
 #pragma region  Select
-void SelectSleep(int*,int*,int*,int*);
-void SelectPoop(int*);
-void SelectEat(int*, int*);
+void SelectSleep(int*,int*,int*,int*,char*);
+void SelectPoop(int*, char*);
+void SelectEat(int*, int*, char*);
 void SelectWalk(int*, int*, int*, int*, int*, int*,char*,char*);
 void SelectTug(int*, int*, int*, int*, int*, int*,char*, char*);
 void SelectShop(int*, int*, int*, int*);
-void SelectGuide();
+void SelectGuide(char*);
 #pragma endregion
 
 #pragma region Show
@@ -32,7 +32,7 @@ void DamagochiNameInput(char*, int);
 
 #pragma region GameStatus
 void Init();
-int IsGameOver(int*, int*, int*, int*);
+int IsGameOver(int*, int*, int*, int*, char*);
 void Action(int, int*, int*, int*, int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void LevelUpRule(int*, int*, int*);
 #pragma endregion
@@ -73,7 +73,7 @@ int main(void)
 	UserNameInput(name,sizeof(name)); //유저 이름을 생성한다
 	DamagochiNameInput(damaname, sizeof(damaname));//다마고치 이름을 생성한다
 
-	while (!IsGameOver(&poo, &stress, &currentlevel, &health)) // 반복문 지속
+	while (!IsGameOver(&poo, &stress, &currentlevel, &health, damaname)) // 반복문 지속
 	{
 		//레벨업 상태 체크
 		LevelUpRule(&exp, &currentlevel, &gochiattack);
@@ -92,7 +92,7 @@ int main(void)
 	}
 }
 
-void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana)
+void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana, char* damaname)
 {
 	if (*health >= *Maxhealth)
 	{
@@ -102,7 +102,7 @@ void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana)
 	else
 	{
 		*health += 10;
-		printf("다마고치의 체력이 %d 증가했습니다\n", 10);
+		printf("%s의 체력이 %d 증가했습니다\n", damaname,10);
 
 	}
 
@@ -114,17 +114,17 @@ void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana)
 	else
 	{
 		*mana += 10;
-		printf("다마고치의 마나가 %d 증가했습니다\n", 10);
+		printf("%s의 마나가 %d 증가했습니다\n", damaname,10);
 	}
 }
 
-void SelectPoop(int* poo)
+void SelectPoop(int* poo,char* damaname)
 {
 	*poo = 0;
-	printf("다마고치의 배변활동지수가 %d 되었습니다\n", *poo);
+	printf("%s의 배변활동지수가 %d 되었습니다\n",damaname, *poo);
 }
 
-void SelectEat(int* hungry,int* poo)
+void SelectEat(int* hungry,int* poo,char* damaname)
 {
 	if (*hungry >= 200)
 	{
@@ -134,7 +134,7 @@ void SelectEat(int* hungry,int* poo)
 	{
 		*hungry += 20;
 		*poo += 20;
-		printf("다마고치의 포만감이 %d 증가했습니다\n", 20);
+		printf("%s의 포만감이 %d 증가했습니다\n", damaname,20);
 	}
 }
 
@@ -411,12 +411,12 @@ void SelectShop(int* rewardgold,int* Maxhealth, int* gochiattack, int* currentle
 
 }
 
-void SelectGuide()
+void SelectGuide(char* damaname)
 {
-	printf("다마고치는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n");
-	printf("다마고치는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n");
-	printf("다마고치는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n");
-	printf("다마고치는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n");
+	printf("%s는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n", damaname);
+	printf("%s는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n",damaname);
+	printf("%s는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n", damaname);
+	printf("%s는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n", damaname);
 }
 
 //함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
@@ -435,8 +435,8 @@ void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int*
 {
 	printf("===================================================\n");
 	printf("상태창\n");
-	printf("다마고치 주인의 이름은 : %s\n",name ); // 어차피 배열은 포인터라 &안적어도된다.
-	printf("다마고치 이름은 : %s\n",damaname); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("다마고치의 이름은 : %s\n", damaname); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("%s의 주인의 이름은 : %s\n",damaname,name ); // 어차피 배열은 포인터라 &안적어도된다.
 	printf("체력: %d\n", *health);
 	printf("마나: %d\n", *mana);
 	printf("포만감: %d\n", *hungry);
@@ -493,19 +493,19 @@ void Init()
 	srand((unsigned int)time(NULL)); // 여러번 돌릴 필요없다, 프로그램 실행시 한번만 초기화 해줘도됨
 }
 
-int IsGameOver(int* poo, int* stress, int* currentlevel, int*health)
+int IsGameOver(int* poo, int* stress, int* currentlevel, int*health,char* damaname)
 {
 	//배변지수가 100을 달성 시 게임오버 상태 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (*poo >= 100 || *stress >= 100)
 	{
-		printf("다마고치가 병에 걸렸습니다.\n");
+		printf("%s가 병에 걸렸습니다.\n", damaname);
 		printf("게임이 종료되었습니다.\n");
 		return 1; // 게임 종료
 	}
 	//승리 조건달아주기 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (*currentlevel == 10)
 	{
-		printf("다마고치가 완전히 성장했습니다!!\n");
+		printf("%s가 완전히 성장했습니다!!\n", damaname);
 		printf("게임이 종료되었습니다.\n");
 		return 1;  // 게임 종료
 	}
@@ -555,13 +555,13 @@ void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* p
 	switch (num1)
 	{
 	case 1:
-		SelectSleep(health, Maxhealth, stress, mana);
+		SelectSleep(health, Maxhealth, stress, mana,damaname);
 		break;
 	case 2:
-		SelectPoop(poo);
+		SelectPoop(poo,damaname);
 		break;
 	case 3:
-		SelectEat(hungry, poo);
+		SelectEat(hungry, poo,damaname);
 		break;
 	case 4:
 		SelectWalk(health, mana, gochiattack, exp, rewardgold, stress,damaname,enemyname);
@@ -573,7 +573,7 @@ void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* p
 		SelectShop(rewardgold, Maxhealth, gochiattack, currentlevel);
 		break;
 	case 7:
-		SelectGuide();
+		SelectGuide(damaname);
 		break;
 	}
 }
