@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="battle.c" />
     <ClCompile Include="game_status.c" />
     <ClCompile Include="main.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -135,6 +136,7 @@
     <Text Include="Damagochi.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="battle.h" />
     <ClInclude Include="game_status.h" />
     <ClInclude Include="select.h" />
     <ClInclude Include="show.h" />

@@ -51,7 +51,6 @@ void Battle(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold,
 			}
 			else
 			{
-
 				int totalDamage = *health + *gochiattack;
 				TakeDamage(&totalDamage, &battle_enemyhealth);
 				ShowDamage(damaname, enemyname, totalDamage);
