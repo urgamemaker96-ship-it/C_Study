@@ -19,7 +19,7 @@ void ShowStatus(int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void ShowShop();
 void ShowChoice();
 void ShowBattle(int, int*, int*);
-void ShowDamage(char*, char*, int,int);
+void ShowDamage(char*, char*, int);
 #pragma endregion
 
 #pragma region Util
@@ -194,7 +194,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					
 					int totalDamage = *health + *gochiattack; // ShowDamage 함수 자료형에 맞는 파라미터 사용 위해서 새로운 변수 맞춰줌
 					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
-					ShowDamage(damaname,enemyname, totalDamage,1); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
+					ShowDamage(damaname,enemyname, totalDamage); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
 					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
 
 				}
@@ -233,7 +233,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					//-> 파라미터 타입에 맞지않는*변수 라고해도 *변수 뜻은 해당 변수의 주소에 있는 값이라는 뜻이다.
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
 					*health = TakeDamage(totalEnemyDagame, *health);
-					ShowDamage(damaname, enemyname,totalEnemyDagame,2);
+					ShowDamage(enemyname, damaname,totalEnemyDagame);
 				}
 				if (*health <= 0)
 				{
@@ -306,7 +306,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 					
 					int totalDamage = *health + *gochiattack;
 					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
-					ShowDamage(damaname, enemyname, totalDamage,2);
+					ShowDamage(damaname, enemyname, totalDamage);
 					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
 
 				}
@@ -345,7 +345,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 				{
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
 					*health = TakeDamage(totalEnemyDagame, *health);
-					ShowDamage(damaname, enemyname, totalEnemyDagame,2);
+					ShowDamage(enemyname, damaname, totalEnemyDagame);
 				}
 				if (*health <= 0)
 				{
@@ -578,21 +578,8 @@ void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* p
 	}
 }
 
-void ShowDamage(char* damaname, char* enemyname, int damage, int turn)
+void ShowDamage(char* attacker, char* deffender, int damage)
 {
-	
-	if (turn % 2 == 1)
-	{
-		// 다마고치 -> 적
-		printf("%s가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damaname, damage);
-		printf("%s에게 %d의 피해를 입혔습니다!\n", enemyname,damage);
-	}
-	
-	 // 적 -> 다마고치
-	else
-	{
-		printf("%s이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", enemyname, damage);
-		printf("%s에게 %d의 피해를 입혔습니다!\n", damaname, damage);
-	}
-	
+	printf("%s가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", attacker, damage);
+	printf("%s에게 %d의 피해를 입혔습니다!\n", deffender, damage);
 }
