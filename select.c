@@ -6,27 +6,30 @@
 
 void SelectSleep(int* health, int* Maxhealth, int* stress, int* mana, char* damaname)
 {
-	if (*health >= *Maxhealth)
+	int gap = 0;
+	// 잠을 자면 체력 또는 마나가 증가한다.
+	// 근데 체력과 마나가 둘 다 최대면 
+	// 스트레스만 준다.
+	if (*health >= *Maxhealth && *mana >= 100)
 	{
 		printf("더이상 잘 필요가 없습니다.\n");
 		*stress += 10;
-	}
-	else
-	{
-		*health += 10;
-		printf("%s의 체력이 %d 증가했습니다\n", damaname, 10);
-
+		return;
 	}
 
-	if (*mana >= 100)
+	if (*health < *Maxhealth)
 	{
-		printf("더이상 마나가 회복될 수 없습니다.\n");
-		*stress += 10;
+		gap = GetAddResultOrZero(*Maxhealth, -(*health), 10);
+
+		*health = GetAddResultOrZero(*health, 10, *Maxhealth);
+		printf("%s의 체력이 %d 증가했습니다\n", damaname, gap);
 	}
-	else
+
+	if (*mana < 100)
 	{
-		*mana += 10;
-		printf("%s의 마나가 %d 증가했습니다\n", damaname, 10);
+		gap = GetAddResultOrZero(100, -(*mana), 10);
+		*mana = GetAddResultOrZero(*mana, 10, 100);
+		printf("%s의 마나가 %d 증가했습니다\n", damaname, gap);
 	}
 }
 
@@ -61,7 +64,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 		// 전투 변수 초기화
 		int turnon = 1; // while 문 통제 위한 변수선언
 		int battle_enemyhealth = 100;  // 적 체력변수 선언
-		int battle_enemyattack = 20; // 적 공격력 변수선언
+		int battle_enemyattack = 15; // 적 공격력 변수선언
 
 		//while 문 안에 while 문 만들어서 통제할려면 변수가 필요했다
 		while (turnon)
@@ -87,7 +90,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstract(*stress, 10);
+					*stress = GetSubstractResultOrZero(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 				break;
@@ -118,7 +121,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstract(*stress, 10);
+					*stress = GetSubstractResultOrZero(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 
@@ -136,7 +139,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			//적 체력 존재하면 공격함
 			if (battle_enemyhealth > 0)
 			{
-				*health = GetSubstract(battle_enemyattack, 10);
+				*health = GetSubstractResultOrZero(battle_enemyattack, 10);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
 
 
@@ -164,7 +167,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 		}
 		else
 		{
-			*stress = GetSubstract(*stress, 20);
+			*stress = GetSubstractResultOrZero(*stress, 20);
 			printf("스트레스가 산책으로 인해 %d 줄었습니다.\n", 20);
 		}
 	}
@@ -202,7 +205,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstract(*stress, 10);
+					*stress = GetSubstractResultOrZero(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 				break;
@@ -230,7 +233,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstract(*stress, 10);
+					*stress = GetSubstractResultOrZero(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 
@@ -250,7 +253,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			// 적 체력이 존재하면 공격함
 			if (battle_enemyhealth > 0)
 			{
-				*health = GetSubstract(battle_enemyattack, 10);
+				*health = GetSubstractResultOrZero(battle_enemyattack, 10);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
@@ -276,7 +279,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 		}
 		else
 		{
-			*stress = GetSubstract(*stress, 30);
+			*stress = GetSubstractResultOrZero(*stress, 30);
 			printf("스트레스가 터그활동으로 인해 %d 줄었습니다.\n", 30);
 		}
 	}
