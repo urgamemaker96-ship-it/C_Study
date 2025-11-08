@@ -87,7 +87,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress -= 10;
+					*stress = GetSubstract(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 				break;
@@ -118,7 +118,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress -= 10;
+					*stress = GetSubstract(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 
@@ -136,7 +136,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			//적 체력 존재하면 공격함
 			if (battle_enemyhealth > 0)
 			{
-				*health -= battle_enemyattack;
+				*health = GetSubstract(battle_enemyattack, 10);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
 
 
@@ -164,7 +164,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 		}
 		else
 		{
-			*stress -= 20;
+			*stress = GetSubstract(*stress, 20);
 			printf("스트레스가 산책으로 인해 %d 줄었습니다.\n", 20);
 		}
 	}
@@ -202,7 +202,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress -= 10;
+					*stress = GetSubstract(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 				break;
@@ -230,7 +230,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
 					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress -= 10;
+					*stress = GetSubstract(*stress, 10);
 					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
 				}
 
@@ -250,7 +250,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			// 적 체력이 존재하면 공격함
 			if (battle_enemyhealth > 0)
 			{
-				*health -= battle_enemyattack;
+				*health = GetSubstract(battle_enemyattack, 10);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
@@ -276,7 +276,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 		}
 		else
 		{
-			*stress -= 30;
+			*stress = GetSubstract(*stress, 30);
 			printf("스트레스가 터그활동으로 인해 %d 줄었습니다.\n", 30);
 		}
 	}
