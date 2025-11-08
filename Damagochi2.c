@@ -5,32 +5,35 @@
 
 //함수 선언들 main 함수 위에서 함수 정의 선언해줬기 때문에 함수선언 따로 할 필요없다.
 #pragma region  Select
-void SelectSleep(int*,int*,int*,int*);
-void SelectPoop(int*);
-void SelectEat(int*, int*);
-void SelectWalk(int*, int*, int*, int*, int*, int*);
-void SelectTug(int*, int*, int*, int*, int*, int*);
+void SelectSleep(int*,int*,int*,int*,char*);
+void SelectPoop(int*, char*);
+void SelectEat(int*, int*, char*);
+void SelectWalk(int*, int*, int*, int*, int*, int*,char*,char*);
+void SelectTug(int*, int*, int*, int*, int*, int*,char*, char*);
 void SelectShop(int*, int*, int*, int*);
-void SelectGuide();
+void SelectGuide(char*);
 #pragma endregion
 
 #pragma region Show
-void ShowStatus(int*, int*, int*, int*, int*, int*, int*);
+void ShowStatus(int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void ShowShop();
 void ShowChoice();
 void ShowBattle(int, int*, int*);
-void ShowDamage(int, int);
+void ShowDamage(char*, char*, int);
 #pragma endregion
 
 #pragma region Util
 int UserInput();
 int Percent(int);
+void UserNameInput(char*, int);
+void DamagochiNameInput(char*, int);
+
 #pragma endregion
 
 #pragma region GameStatus
 void Init();
-int IsGameOver(int*, int*, int*, int*);
-void Action(int, int*, int*, int*, int*, int*, int*, int*, int*, int*, int*);
+int IsGameOver(int*, int*, int*, int*, char*);
+void Action(int, int*, int*, int*, int*, int*, int*, int*, int*, int*, int*,char*,char*);
 void LevelUpRule(int*, int*, int*);
 #pragma endregion
 
@@ -61,17 +64,22 @@ int main(void)
 	int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
 
 	int mainInput;
+	char name[20]; // 유저이름 받기위한 초기값 설정
+	char damaname[20]; // 다마고치 이름 받기위한 초기값 설정
+	char enemyname[20] = "오후의태양단";
 
 	// 게임 초기화
 	Init();
+	UserNameInput(name,sizeof(name)); //유저 이름을 생성한다
+	DamagochiNameInput(damaname, sizeof(damaname));//다마고치 이름을 생성한다
 
-	while (!IsGameOver(&poo, &stress, &currentlevel, &health)) // 반복문 지속
+	while (!IsGameOver(&poo, &stress, &currentlevel, &health, damaname)) // 반복문 지속
 	{
 		//레벨업 상태 체크
 		LevelUpRule(&exp, &currentlevel, &gochiattack);
 		
 		// 상태 정보 출력
-		ShowStatus(&health, &mana, &hungry, &poo, &stress, &exp, &rewardgold);
+		ShowStatus(&health, &mana, &hungry, &poo, &stress, &exp, &rewardgold,name,damaname);
 
 		// 유저 입력 메뉴 출력
 		ShowChoice();
@@ -80,11 +88,11 @@ int main(void)
 		mainInput = UserInput();
 
 		// 유저 입력에 따른 액션		
-		Action(mainInput,&health, &Maxhealth, &stress, &mana, &poo, &hungry, &gochiattack, &exp, &rewardgold, &currentlevel);
+		Action(mainInput,&health, &Maxhealth, &stress, &mana, &poo, &hungry, &gochiattack, &exp, &rewardgold, &currentlevel,damaname, enemyname);
 	}
 }
 
-void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana)
+void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana, char* damaname)
 {
 	if (*health >= *Maxhealth)
 	{
@@ -94,7 +102,7 @@ void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana)
 	else
 	{
 		*health += 10;
-		printf("다마고치의 체력이 %d 증가했습니다\n", 10);
+		printf("%s의 체력이 %d 증가했습니다\n", damaname,10);
 
 	}
 
@@ -106,17 +114,17 @@ void SelectSleep(int* health, int* Maxhealth , int* stress, int* mana)
 	else
 	{
 		*mana += 10;
-		printf("다마고치의 마나가 %d 증가했습니다\n", 10);
+		printf("%s의 마나가 %d 증가했습니다\n", damaname,10);
 	}
 }
 
-void SelectPoop(int* poo)
+void SelectPoop(int* poo,char* damaname)
 {
 	*poo = 0;
-	printf("다마고치의 배변활동지수가 %d 되었습니다\n", *poo);
+	printf("%s의 배변활동지수가 %d 되었습니다\n",damaname, *poo);
 }
 
-void SelectEat(int* hungry,int* poo)
+void SelectEat(int* hungry,int* poo,char* damaname)
 {
 	if (*hungry >= 200)
 	{
@@ -126,17 +134,17 @@ void SelectEat(int* hungry,int* poo)
 	{
 		*hungry += 20;
 		*poo += 20;
-		printf("다마고치의 포만감이 %d 증가했습니다\n", 20);
+		printf("%s의 포만감이 %d 증가했습니다\n", damaname,20);
 	}
 }
 
-void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold,int* stress)
+void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold,int* stress,char* damaname,char* enemyname)
 {
 	int userInput;
 	if (Percent(50)) //0~49니깐 50퍼센트다
 	{
 		printf("===================================================\n");
-		printf("산책 중 적이 나타났습니다!!.\n");
+		printf("산책 중 %s이 나타났습니다!!.\n",enemyname);
 
 		// 전투 변수 초기화
 		int turnon = 1; // while 문 통제 위한 변수선언
@@ -157,11 +165,11 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			{
 			case 1: // 공격
 				battle_enemyhealth = TakeDamage(*gochiattack, battle_enemyhealth); //이중포인터 문제 생겨서 TakeDamage 함수와 ShowDamage 함수는 포인터 타입으로 선언안함
-				printf("적에게 %d 만큼 피해를 줬습니다!\n", *gochiattack);
+				printf("%s에게 %d 만큼 피해를 줬습니다!\n",enemyname, *gochiattack);
 
 				if (battle_enemyhealth <= 0) // 적 사망조건
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -173,7 +181,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 				break;
 
 			case 2: // 적 사망 조건을 스킬에도 적용 해줘야 적 체력 -되면 사망 판정됨
-				printf("다마고치가 스킬을 사용했습니다!.\n");
+				printf("%s가 스킬을 사용했습니다!.\n",damaname);
 				if (*mana < 50) //0으로 하니 타이밍 안맞아서 50으로 맞춤
 				{
 					printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
@@ -183,15 +191,16 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 				{
 					*mana -= 50;
 
+					
 					int totalDamage = *health + *gochiattack; // ShowDamage 함수 자료형에 맞는 파라미터 사용 위해서 새로운 변수 맞춰줌
 					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
-					ShowDamage(1, totalDamage);
+					ShowDamage(damaname,enemyname, totalDamage); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
 					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
 
 				}
 				if (battle_enemyhealth <= 0)
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -216,7 +225,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			if (battle_enemyhealth > 0)
 			{
 				*health -= battle_enemyattack;
-				printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
+				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname,battle_enemyattack);
 
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
@@ -224,11 +233,11 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 					//-> 파라미터 타입에 맞지않는*변수 라고해도 *변수 뜻은 해당 변수의 주소에 있는 값이라는 뜻이다.
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
 					*health = TakeDamage(totalEnemyDagame, *health);
-					ShowDamage(2, totalEnemyDagame);
+					ShowDamage(enemyname, damaname,totalEnemyDagame);
 				}
 				if (*health <= 0)
 				{
-					printf("다마고치가 쓰러졌습니다!\n");
+					printf("%s가 쓰러졌습니다!\n",damaname);
 					turnon = 0;
 				}
 			}
@@ -249,13 +258,13 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 	}
 }
 
-void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress)
+void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress,char* damaname,char* enemyname)
 {
 	int userInput;
 	if (Percent(60))
 	{
 		printf("===================================================\n");
-		printf("터그놀이 중 적이 나타났습니다!!.\n");
+		printf("터그놀이 중 %s이 나타났습니다!!.\n");
 
 		// while 문 안에 또 while 문 만들어야 전투 상태 창 만들 수 있음
 		int turnon = 1; // while 문 안에 while 문 통제위한 변수선언 및 초기화
@@ -271,11 +280,11 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			{
 			case 1: // 공격
 				battle_enemyhealth = TakeDamage(*gochiattack, battle_enemyhealth);
-				printf("적에게 %d 만큼 피해를 줬습니다!\n", *gochiattack);
+				printf("%s에게 %d 만큼 피해를 줬습니다!\n",enemyname, *gochiattack);
 
 				if (battle_enemyhealth <= 0)
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // while 문 속 while 문 탈출하고 일반 while문으로 감
 					*exp += 50;
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -287,23 +296,23 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 				break;
 
 			case 2: // 스킬
-				printf("다마고치가 스킬을 사용했습니다!.\n");
+				printf("%s가 스킬을 사용했습니다!.\n",damaname);
 				if (*mana < 50)
 				{
 					printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
 				}
 				else
 				{
-
+					
 					int totalDamage = *health + *gochiattack;
 					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
-					ShowDamage(1, totalDamage);
+					ShowDamage(damaname, enemyname, totalDamage);
 					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
 
 				}
 				if (battle_enemyhealth <= 0)
 				{
-					printf("적이 사망했습니다!!.\n");
+					printf("%s이 사망했습니다!!.\n",enemyname);
 					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
@@ -330,17 +339,17 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			if (battle_enemyhealth > 0)
 			{
 				*health -= battle_enemyattack;
-				printf("적이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", battle_enemyattack);
+				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n",enemyname, battle_enemyattack);
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 				{
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
 					*health = TakeDamage(totalEnemyDagame, *health);
-					ShowDamage(2, totalEnemyDagame);
+					ShowDamage(enemyname, damaname, totalEnemyDagame);
 				}
 				if (*health <= 0)
 				{
-					printf("다마고치가 쓰러졌습니다!\n");
+					printf("%s가 쓰러졌습니다!\n",damaname);
 					turnon = 0;
 				}
 			}
@@ -402,12 +411,12 @@ void SelectShop(int* rewardgold,int* Maxhealth, int* gochiattack, int* currentle
 
 }
 
-void SelectGuide()
+void SelectGuide(char* damaname)
 {
-	printf("다마고치는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n");
-	printf("다마고치는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n");
-	printf("다마고치는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n");
-	printf("다마고치는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n");
+	printf("%s는 스트레스가 100을 찍거나 배변지수가 100일 경우 사망 그리고 전투 시 체력이 떨어지면 사망합니다.\n", damaname);
+	printf("%s는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n",damaname);
+	printf("%s는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n", damaname);
+	printf("%s는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n", damaname);
 }
 
 //함수 정의들 > 함수 리턴 부분과 함수 이름명 앞 맞춰줘야됨 , 그리고 리턴값은 반드시 1개다
@@ -422,10 +431,12 @@ int Percent(int num1) // 확률조건을 출력해주는 함수
 	return (rand() % 100) < num1; // 0에서99까지 랜덤하게 나오는데 < 70면 0~69까지 반환됨 -> 조건 자체가 반환된다.
 	//0과 1로 판단 -> 조건이 참이면 실행되는거다!
 }
-void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold)
+void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold,char* name, char* damaname)
 {
 	printf("===================================================\n");
 	printf("상태창\n");
+	printf("다마고치의 이름은 : %s\n", damaname); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("%s의 주인의 이름은 : %s\n",damaname,name ); // 어차피 배열은 포인터라 &안적어도된다.
 	printf("체력: %d\n", *health);
 	printf("마나: %d\n", *mana);
 	printf("포만감: %d\n", *hungry);
@@ -482,19 +493,19 @@ void Init()
 	srand((unsigned int)time(NULL)); // 여러번 돌릴 필요없다, 프로그램 실행시 한번만 초기화 해줘도됨
 }
 
-int IsGameOver(int* poo, int* stress, int* currentlevel, int*health)
+int IsGameOver(int* poo, int* stress, int* currentlevel, int*health,char* damaname)
 {
 	//배변지수가 100을 달성 시 게임오버 상태 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (*poo >= 100 || *stress >= 100)
 	{
-		printf("다마고치가 병에 걸렸습니다.\n");
+		printf("%s가 병에 걸렸습니다.\n", damaname);
 		printf("게임이 종료되었습니다.\n");
 		return 1; // 게임 종료
 	}
 	//승리 조건달아주기 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (*currentlevel == 10)
 	{
-		printf("다마고치가 완전히 성장했습니다!!\n");
+		printf("%s가 완전히 성장했습니다!!\n", damaname);
 		printf("게임이 종료되었습니다.\n");
 		return 1;  // 게임 종료
 	}
@@ -517,47 +528,58 @@ int UserInput()
 	return inputNum;
 }
 
-void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* poo, int* hungry, int* gochiattack,int* exp, int* rewardgold, int* currentlevel)
+void UserNameInput(char* name, int size)
+{
+	
+	printf("다마고치의 주인이 될 본인의 이름을 입력해주세요 : ");
+	scanf_s("%s", name,size); // scanf_s("%s", name,size); 오류로 확인되며 3번째에 반드시 버퍼크기를 적어줘야지 오류를 줄일 수 있기 때문에 입력이 강제된다.
+	printf("\n입력하신 이름은 : %s 입니다\n", name);
+	
+
+}
+
+void DamagochiNameInput(char* damaname, int size)
+{
+	
+	printf("\n다마고치의 이름을 입력해주세요 : ");
+	scanf_s("%s",damaname, size); // scanf_s("%s", name,size); 오류로 확인되며 3번째에 반드시 버퍼크기를 적어줘야지 오류를 줄일 수 있기 때문에 입력이 강제된다.
+	printf("\n입력하신 이름은 : %s 입니다\n", damaname);
+	
+}
+
+
+
+
+void Action(int num1,int* health, int* Maxhealth, int* stress, int* mana, int* poo, int* hungry, int* gochiattack,int* exp, int* rewardgold, int* currentlevel,char* damaname,char* enemyname)
 {	//전부 이중포인터 문제 때문에 파라미터변수 앞에 &안달아준거다.
 	switch (num1)
 	{
 	case 1:
-		SelectSleep(health, Maxhealth, stress, mana);
+		SelectSleep(health, Maxhealth, stress, mana,damaname);
 		break;
 	case 2:
-		SelectPoop(poo);
+		SelectPoop(poo,damaname);
 		break;
 	case 3:
-		SelectEat(hungry, poo);
+		SelectEat(hungry, poo,damaname);
 		break;
 	case 4:
-		SelectWalk(health, mana, gochiattack, exp, rewardgold, stress);
+		SelectWalk(health, mana, gochiattack, exp, rewardgold, stress,damaname,enemyname);
 		break;
 	case 5:
-		SelectTug(health, mana, gochiattack, exp, rewardgold, stress);
+		SelectTug(health, mana, gochiattack, exp, rewardgold, stress,damaname,enemyname);
 		break;
 	case 6:
 		SelectShop(rewardgold, Maxhealth, gochiattack, currentlevel);
 		break;
 	case 7:
-		SelectGuide();
+		SelectGuide(damaname);
 		break;
 	}
 }
 
-void ShowDamage(int target, int damage)
+void ShowDamage(char* attacker, char* deffender, int damage)
 {
-	
-	switch (target)
-	{
-	case 1: // 다마고치 -> 적
-		printf("다마고치가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damage);
-		printf("적에게 %d의 피해를 입혔습니다!\n", damage);
-		break;
-
-	case 2: // 적 -> 다마고치
-		printf("적이 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", damage);
-		printf("다마고치에게 %d의 피해를 입혔습니다!\n", damage);
-		break;
-	}
+	printf("%s가 체력과 공격력을 합친 스킬(총공격력:%d)을 사용했습니다!\n", attacker, damage);
+	printf("%s에게 %d의 피해를 입혔습니다!\n", deffender, damage);
 }
