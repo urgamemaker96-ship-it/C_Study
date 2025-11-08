@@ -79,7 +79,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			switch (userInput) // 분기문 안에 분기문 만들 수 있었다!!!
 			{
 			case 1: // 공격
-				battle_enemyhealth = TakeDamage(*gochiattack, battle_enemyhealth); //이중포인터 문제 생겨서 TakeDamage 함수와 ShowDamage 함수는 포인터 타입으로 선언안함
+				TakeDamage(gochiattack, &battle_enemyhealth); //이중포인터 문제 생겨서 TakeDamage 함수와 ShowDamage 함수는 포인터 타입으로 선언안함
 				printf("%s에게 %d 만큼 피해를 줬습니다!\n", enemyname, *gochiattack);
 
 				if (battle_enemyhealth <= 0) // 적 사망조건
@@ -108,7 +108,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 
 
 					int totalDamage = *health + *gochiattack; // ShowDamage 함수 자료형에 맞는 파라미터 사용 위해서 새로운 변수 맞춰줌
-					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
+					TakeDamage(&totalDamage, &battle_enemyhealth);
 					ShowDamage(damaname, enemyname, totalDamage); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
 					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
 
@@ -139,7 +139,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			//적 체력 존재하면 공격함
 			if (battle_enemyhealth > 0)
 			{
-				*health = GetSubstractResultOrZero(battle_enemyattack, 10);
+				*health = GetSubstractResultOrZero(*health, battle_enemyattack);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
 
 
@@ -147,7 +147,7 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 				{	//TakeDamage 함수는 그냥 단순 계산기다 
 					//-> 파라미터 타입에 맞지않는*변수 라고해도 *변수 뜻은 해당 변수의 주소에 있는 값이라는 뜻이다.
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
-					*health = TakeDamage(totalEnemyDagame, *health);
+					TakeDamage(&totalEnemyDagame, health);
 					ShowDamage(enemyname, damaname, totalEnemyDagame);
 				}
 				if (*health <= 0)
@@ -194,7 +194,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			switch (userInput)
 			{
 			case 1: // 공격
-				battle_enemyhealth = TakeDamage(*gochiattack, battle_enemyhealth);
+				TakeDamage(gochiattack, &battle_enemyhealth);
 				printf("%s에게 %d 만큼 피해를 줬습니다!\n", enemyname, *gochiattack);
 
 				if (battle_enemyhealth <= 0)
@@ -220,7 +220,7 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 				{
 
 					int totalDamage = *health + *gochiattack;
-					battle_enemyhealth = TakeDamage(totalDamage, battle_enemyhealth);
+					TakeDamage(&totalDamage, &battle_enemyhealth);
 					ShowDamage(damaname, enemyname, totalDamage);
 					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
 
@@ -253,13 +253,13 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			// 적 체력이 존재하면 공격함
 			if (battle_enemyhealth > 0)
 			{
-				*health = GetSubstractResultOrZero(battle_enemyattack, 10);
+				*health = GetSubstractResultOrZero(*health, battle_enemyattack);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
 
 				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
 				{
 					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
-					*health = TakeDamage(totalEnemyDagame, *health);
+					TakeDamage(&totalEnemyDagame, health);
 					ShowDamage(enemyname, damaname, totalEnemyDagame);
 				}
 				if (*health <= 0)

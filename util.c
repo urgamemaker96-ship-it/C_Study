@@ -31,9 +31,9 @@ void DamagochiNameInput(char* damaname, int size)
 
 }
 
-int TakeDamage(int damage, int health)//이미 윗쪽 지역변수 health 선언되어 있어서 따로 포인터 자료형변수로 안만듬
+void TakeDamage(int* damage, int* health)//이미 윗쪽 지역변수 health 선언되어 있어서 따로 포인터 자료형변수로 안만듬
 {
-	return health - damage;
+	*health -= *damage;
 }
 int Percent(int num1) // 확률조건을 출력해주는 함수
 {
