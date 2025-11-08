@@ -1,6 +1,7 @@
 #include "select.h"
 #include "show.h"
 #include "util.h"
+#include "battle.h"
 #include <stdio.h>
 
 
@@ -55,104 +56,9 @@ void SelectEat(int* hungry, int* poo, char* damaname)
 
 void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress, char* damaname, char* enemyname)
 {
-	int userInput = 0;
-	if (Percent(50)) //0~49니깐 50퍼센트다
+	if (Percent(50))
 	{
-		printf("===================================================\n");
-		printf("산책 중 %s이 나타났습니다!!.\n", enemyname);
-
-		// 전투 변수 초기화
-		int battle_enemyhealth = 100;  // 적 체력변수 선언
-		int battle_enemyattack = 15; // 적 공격력 변수선언
-
-		//while 문 안에 while 문 만들어서 통제할려면 변수가 필요했다
-		while (1)
-		{
-			if (battle_enemyhealth <= 0 ||
-				*health <= 0 ||
-				userInput == 3)
-				return;
-
-			ShowBattle(battle_enemyhealth, health, mana);
-			scanf_s("%d", &userInput);
-
-			switch (userInput) // 분기문 안에 분기문 만들 수 있었다!!!
-			{
-			case 1: // 공격
-				TakeDamage(gochiattack, &battle_enemyhealth); //이중포인터 문제 생겨서 TakeDamage 함수와 ShowDamage 함수는 포인터 타입으로 선언안함
-				printf("%s에게 %d 만큼 피해를 줬습니다!\n", enemyname, *gochiattack);
-
-				if (battle_enemyhealth <= 0) // 적 사망조건
-				{
-					printf("%s이 사망했습니다!!.\n", enemyname);
-					*exp += 50;   // 경험치 획득
-					printf("경험치를 %d 얻었습니다!\n", 50);
-					*rewardgold += 200;
-					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstractResultOrZero(*stress, 10);
-					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-				}
-				break;
-
-			case 2: // 적 사망 조건을 스킬에도 적용 해줘야 적 체력 -되면 사망 판정됨
-				printf("%s가 스킬을 사용했습니다!.\n", damaname);
-				if (*mana < 50) //0으로 하니 타이밍 안맞아서 50으로 맞춤
-				{
-					printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
-
-				}
-				else
-				{
-					*mana -= 50;
-
-
-					int totalDamage = *health + *gochiattack; // ShowDamage 함수 자료형에 맞는 파라미터 사용 위해서 새로운 변수 맞춰줌
-					TakeDamage(&totalDamage, &battle_enemyhealth);
-					ShowDamage(damaname, enemyname, totalDamage); //damaname 은 이미 포인터 타입이라 그냥 변수명 써도됨
-					//반드시 값을 초기화 해줘야 적 체력이 깎아진다
-
-				}
-				if (battle_enemyhealth <= 0)
-				{
-					printf("%s이 사망했습니다!!.\n", enemyname);
-					*exp += 50;   // 경험치 획득
-					printf("경험치를 %d 얻었습니다!\n", 50);
-					*rewardgold += 200;
-					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstractResultOrZero(*stress, 10);
-					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-				}
-
-				break;
-
-			case 3: // 도망
-				printf("도망쳤습니다!\n");
-				*stress += 10;
-				break;
-
-
-			}
-
-			//적 체력 존재하면 공격함
-			if (battle_enemyhealth > 0 && userInput != 3)
-			{
-				*health = GetSubstractResultOrZero(*health, battle_enemyattack);
-				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
-
-
-				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
-				{	//TakeDamage 함수는 그냥 단순 계산기다 
-					//-> 파라미터 타입에 맞지않는*변수 라고해도 *변수 뜻은 해당 변수의 주소에 있는 값이라는 뜻이다.
-					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
-					TakeDamage(&totalEnemyDagame, health);
-					ShowDamage(enemyname, damaname, totalEnemyDagame);
-				}
-				if (*health <= 0)
-				{
-					printf("%s가 쓰러졌습니다!\n", damaname);
-				}
-			}
-		}
+		Battle(health, mana, gochiattack, exp, rewardgold, stress, damaname, enemyname);
 	}
 	else
 	{
@@ -163,108 +69,17 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 		}
 		else
 		{
-			*stress = GetSubstractResultOrZero(*stress, 20);
-			printf("스트레스가 산책으로 인해 %d 줄었습니다.\n", 20);
+			*stress = GetSubstractResultOrZero(*stress, 30);
+			printf("스트레스가 산책활동으로 인해 %d 줄었습니다.\n", 30);
 		}
 	}
 }
 
 void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress, char* damaname, char* enemyname)
 {
-	int userInput = 0;
 	if (Percent(60))
 	{
-		printf("===================================================\n");
-		printf("터그놀이 중 %s이 나타났습니다!!.\n", enemyname);
-
-		// while 문 안에 또 while 문 만들어야 전투 상태 창 만들 수 있음
-		int battle_enemyhealth = 80;  // 산책과 비교해서 체력 낮다
-		int battle_enemyattack = 30;   // 
-
-		while (1)
-		{
-			if (battle_enemyhealth <= 0 ||
-				*health <= 0 ||
-				userInput == 3)
-				return;
-
-			ShowBattle(battle_enemyhealth, health, mana);
-			scanf_s("%d", &userInput);
-
-			switch (userInput)
-			{
-			case 1: // 공격
-				TakeDamage(gochiattack, &battle_enemyhealth);
-				printf("%s에게 %d 만큼 피해를 줬습니다!\n", enemyname, *gochiattack);
-
-				if (battle_enemyhealth <= 0)
-				{
-					printf("%s이 사망했습니다!!.\n", enemyname);
-					*exp += 50;
-					printf("경험치를 %d 얻었습니다!\n", 50);
-					*rewardgold += 200;
-					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstractResultOrZero(*stress, 10);
-					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-				}
-				break;
-
-			case 2: // 스킬
-				printf("%s가 스킬을 사용했습니다!.\n", damaname);
-				if (*mana < 50)
-				{
-					printf("마나가 없어 스킬을 사용하지 못합니다.!.\n");
-				}
-				else
-				{
-
-					int totalDamage = *health + *gochiattack;
-					TakeDamage(&totalDamage, &battle_enemyhealth);
-					ShowDamage(damaname, enemyname, totalDamage);
-					//값 초기화 해줘야지 적 체력 깎인다, 이거 제일 중요함!!
-
-				}
-				if (battle_enemyhealth <= 0)
-				{
-					printf("%s이 사망했습니다!!.\n", enemyname);
-					*exp += 50;   // 경험치 획득
-					printf("경험치를 %d 얻었습니다!\n", 50);
-					*rewardgold += 200;
-					printf("골드를 %d 얻었습니다!\n", 200);
-					*stress = GetSubstractResultOrZero(*stress, 10);
-					printf("스트레스가를 %d 만큼 떨어졌습니다\n", 10);
-				}
-
-
-
-				break;
-
-			case 3: // 도망
-				printf("도망쳤습니다!\n");
-				*stress += 10;
-				break;
-
-
-			}
-
-			// 적 체력이 존재하면 공격함
-			if (battle_enemyhealth > 0)
-			{
-				*health = GetSubstractResultOrZero(*health, battle_enemyattack);
-				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
-
-				if (Percent(30)) // 적스킬은 30퍼센트로 스킬 나감
-				{
-					int totalEnemyDagame = battle_enemyhealth + battle_enemyattack;
-					TakeDamage(&totalEnemyDagame, health);
-					ShowDamage(enemyname, damaname, totalEnemyDagame);
-				}
-				if (*health <= 0)
-				{
-					printf("%s가 쓰러졌습니다!\n", damaname);
-				}
-			}
-		}
+		Battle(health, mana, gochiattack, exp, rewardgold, stress, damaname, enemyname);
 	}
 	else
 	{
