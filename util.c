@@ -12,23 +12,11 @@ int UserInput()
 	return inputNum;
 }
 
-void UserNameInput(char* name, int size)
+void InputName(char* str, char* name, int size)
 {
-
-	printf("다마고치의 주인이 될 본인의 이름을 입력해주세요 : ");
-	scanf_s("%s", name, size); // scanf_s("%s", name,size); 오류로 확인되며 3번째에 반드시 버퍼크기를 적어줘야지 오류를 줄일 수 있기 때문에 입력이 강제된다.
-	printf("\n입력하신 이름은 : %s 입니다\n", name);
-
-
-}
-
-void DamagochiNameInput(char* damaname, int size)
-{
-
-	printf("\n다마고치의 이름을 입력해주세요 : ");
-	scanf_s("%s", damaname, size); // scanf_s("%s", name,size); 오류로 확인되며 3번째에 반드시 버퍼크기를 적어줘야지 오류를 줄일 수 있기 때문에 입력이 강제된다.
-	printf("\n입력하신 이름은 : %s 입니다\n", damaname);
-
+	printf("%s", str);
+	scanf_s("%s", name, size);
+	printf("\n입력하신 이름은 %s 입니다\n", name);
 }
 
 void TakeDamage(int* damage, int* health)//이미 윗쪽 지역변수 health 선언되어 있어서 따로 포인터 자료형변수로 안만듬
