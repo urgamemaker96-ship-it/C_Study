@@ -55,25 +55,25 @@ void SelectEat(int* hungry, int* poo, char* damaname)
 
 void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress, char* damaname, char* enemyname)
 {
-	int userInput;
+	int userInput = 0;
 	if (Percent(50)) //0~49니깐 50퍼센트다
 	{
 		printf("===================================================\n");
 		printf("산책 중 %s이 나타났습니다!!.\n", enemyname);
 
 		// 전투 변수 초기화
-		int turnon = 1; // while 문 통제 위한 변수선언
 		int battle_enemyhealth = 100;  // 적 체력변수 선언
 		int battle_enemyattack = 15; // 적 공격력 변수선언
 
 		//while 문 안에 while 문 만들어서 통제할려면 변수가 필요했다
-		while (turnon)
+		while (1)
 		{
-			//1. battle_enemyhealth는 따로 포인터 변수로 안받아줘도됨, 이미 위쪽 블록에 선언됨
-			//2. ShowBattle(변수,&변수,&변수) 꼴로 받아야 되는데 그럴 경우 health, mana 의 메모리 위치(주소) 값이나옴
-			//3-1 이미 SelectWalk 함수 에서 체력과 마나를 포인터 값으로 선언해줘서 
-			//3-2 내가 여기 ShowBattle 함수에 또 체력과 마나 포인터 &변수로 써버리면 이중포인터다 그래서 그냥 포인터인 mana, health 써주는거다
-			ShowBattle(battle_enemyhealth, health, mana); //&health, &mana 안써주는데는 이유가 있다.
+			if (battle_enemyhealth <= 0 ||
+				*health <= 0 ||
+				userInput == 3)
+				return;
+
+			ShowBattle(battle_enemyhealth, health, mana);
 			scanf_s("%d", &userInput);
 
 			switch (userInput) // 분기문 안에 분기문 만들 수 있었다!!!
@@ -85,7 +85,6 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 				if (battle_enemyhealth <= 0) // 적 사망조건
 				{
 					printf("%s이 사망했습니다!!.\n", enemyname);
-					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
@@ -116,7 +115,6 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 				if (battle_enemyhealth <= 0)
 				{
 					printf("%s이 사망했습니다!!.\n", enemyname);
-					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
@@ -130,14 +128,13 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 			case 3: // 도망
 				printf("도망쳤습니다!\n");
 				*stress += 10;
-				turnon = 0;  // 내부 while 루프 탈출
 				break;
 
 
 			}
 
 			//적 체력 존재하면 공격함
-			if (battle_enemyhealth > 0)
+			if (battle_enemyhealth > 0 && userInput != 3)
 			{
 				*health = GetSubstractResultOrZero(*health, battle_enemyattack);
 				printf("%s이 당신을 공격했습니다! 체력이 %d 감소했습니다.\n", enemyname, battle_enemyattack);
@@ -153,7 +150,6 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 				if (*health <= 0)
 				{
 					printf("%s가 쓰러졌습니다!\n", damaname);
-					turnon = 0;
 				}
 			}
 		}
@@ -175,19 +171,23 @@ void SelectWalk(int* health, int* mana, int* gochiattack, int* exp, int* rewardg
 
 void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress, char* damaname, char* enemyname)
 {
-	int userInput;
+	int userInput = 0;
 	if (Percent(60))
 	{
 		printf("===================================================\n");
 		printf("터그놀이 중 %s이 나타났습니다!!.\n", enemyname);
 
 		// while 문 안에 또 while 문 만들어야 전투 상태 창 만들 수 있음
-		int turnon = 1; // while 문 안에 while 문 통제위한 변수선언 및 초기화
 		int battle_enemyhealth = 80;  // 산책과 비교해서 체력 낮다
 		int battle_enemyattack = 30;   // 
 
-		while (turnon)
+		while (1)
 		{
+			if (battle_enemyhealth <= 0 ||
+				*health <= 0 ||
+				userInput == 3)
+				return;
+
 			ShowBattle(battle_enemyhealth, health, mana);
 			scanf_s("%d", &userInput);
 
@@ -200,7 +200,6 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 				if (battle_enemyhealth <= 0)
 				{
 					printf("%s이 사망했습니다!!.\n", enemyname);
-					turnon = 0;  // while 문 속 while 문 탈출하고 일반 while문으로 감
 					*exp += 50;
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
@@ -228,7 +227,6 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 				if (battle_enemyhealth <= 0)
 				{
 					printf("%s이 사망했습니다!!.\n", enemyname);
-					turnon = 0;  // 내부 while 루프 탈출
 					*exp += 50;   // 경험치 획득
 					printf("경험치를 %d 얻었습니다!\n", 50);
 					*rewardgold += 200;
@@ -244,7 +242,6 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 			case 3: // 도망
 				printf("도망쳤습니다!\n");
 				*stress += 10;
-				turnon = 0;  // while 문 탈출한다. 만약 0으로 값 초기화 안해주면 도망 못하고 계속 진행됨
 				break;
 
 
@@ -265,7 +262,6 @@ void SelectTug(int* health, int* mana, int* gochiattack, int* exp, int* rewardgo
 				if (*health <= 0)
 				{
 					printf("%s가 쓰러졌습니다!\n", damaname);
-					turnon = 0;
 				}
 			}
 		}
