@@ -120,11 +120,12 @@ void PrintNum(int);
 
 // 메인 함수
 int main(void)
-{
-	int a = 10;
-	int b = 20;
+{	
+	printf("a : %d  b : %d  ", dataA, dataB);
+	dataA= 10;
+	dataB = 20;
 	// 함수의 호출
-	Add(a, b);
+	printf("a : %d  b : %d ", dataA, dataB);
 }
 
 // 함수의 정의
