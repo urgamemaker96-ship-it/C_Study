@@ -1,18 +1,20 @@
 #include "game_status.h"
 #include "select.h"
+#include "Struct.h"
 
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-void LevelUpRule(int* exp, int* currentlevel, int* gochiattack)
+
+void LevelUpRule(damagochi* target)
 {
-	if (*exp >= 100 * *currentlevel * 1.2)
+	if (target->exp >= 100 * target->currentlevel * 1.2)
 	{
-		(*currentlevel)++; //*(currentlevel)++ 이렇게해서 포인터가 가르키는 값을 증가시켜야 되는데 포인터 값 자체를 증가시킴 -> 오류수정
-		*exp = 0; //포인터로 참조한 변수의값을 0으로 초기화해줌
-		*gochiattack += 10; //포인터로 참조한 변수의값을 10씩 증감해줌
-		printf("\n 레벨 업! 현재 레벨: %d\n", *currentlevel);
-		printf("공격력이 %d로 증가했습니다!\n", *gochiattack);
+		(target->currentlevel)++; //*(currentlevel)++ 이렇게해서 포인터가 가르키는 값을 증가시켜야 되는데 포인터 값 자체를 증가시킴 -> 오류수정
+		target->exp = 0; //포인터로 참조한 변수의값을 0으로 초기화해줌
+		target->gochiattack += 10; //포인터로 참조한 변수의값을 10씩 증감해줌
+		printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
+		printf("공격력이 %d로 증가했습니다!\n", target->gochiattack);
 	}
 
 }

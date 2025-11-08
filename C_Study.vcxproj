@@ -138,6 +138,7 @@
     <ClInclude Include="game_status.h" />
     <ClInclude Include="select.h" />
     <ClInclude Include="show.h" />
+    <ClInclude Include="Struct.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
