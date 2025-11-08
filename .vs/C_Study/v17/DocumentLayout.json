@@ -1,12 +1,71 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:game_status.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:game_status.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "game_status.h",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h",
+              "RelativeDocumentMoniker": "game_status.h",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h",
+              "RelativeToolTip": "game_status.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-08T09:28:49.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "game_status.c",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c",
+              "RelativeDocumentMoniker": "game_status.c",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c",
+              "RelativeToolTip": "game_status.c",
+              "ViewState": "AgIAAA4AAAAAAAAAAAApwBsAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-11-08T09:27:54.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.c",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\main.c",
+              "RelativeDocumentMoniker": "main.c",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\main.c",
+              "RelativeToolTip": "main.c",
+              "ViewState": "AgIAAA4AAAAAAAAAAAASwBkAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-11-08T09:27:30.696Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

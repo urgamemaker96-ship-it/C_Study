@@ -22,7 +22,7 @@ int main(void)
 	UserNameInput(name,sizeof(name)); //유저 이름을 생성한다
 	DamagochiNameInput(mainDamagochi.damaname, sizeof(mainDamagochi.damaname));//다마고치 이름을 생성한다
 
-	while (!IsGameOver(&mainDamagochi.poo, &mainDamagochi.stress, &mainDamagochi.currentlevel, &mainDamagochi.health, mainDamagochi.damaname)) // 반복문 지속
+	while (!IsGameOver(&mainDamagochi)) // 반복문 지속
 	{
 		//레벨업 상태 체크
 		LevelUpRule(&mainDamagochi);
