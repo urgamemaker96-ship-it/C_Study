@@ -25,24 +25,24 @@ void Init()
 	srand((unsigned int)time(NULL)); // 여러번 돌릴 필요없다, 프로그램 실행시 한번만 초기화 해줘도됨
 }
 
-int IsGameOver(int* poo, int* stress, int* currentlevel, int* health, char* damaname)
+int IsGameOver(damagochi* damagochi)
 {
 	//배변지수가 100을 달성 시 게임오버 상태 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
-	if (*poo >= 100 || *stress >= 100)
+	if (damagochi->poo >= 100 || damagochi->stress >= 100)
 	{
-		printf("%s가 병에 걸렸습니다.\n", damaname);
+		printf("%s가 병에 걸렸습니다.\n", damagochi->damaname);
 		printf("게임이 종료되었습니다.\n");
 		return 1; // 게임 종료
 	}
 	//승리 조건달아주기 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
-	if (*currentlevel == 10)
+	if (damagochi->currentlevel == 10)
 	{
-		printf("%s가 완전히 성장했습니다!!\n", damaname);
+		printf("%s가 완전히 성장했습니다!!\n", damagochi->damaname);
 		printf("게임이 종료되었습니다.\n");
 		return 1;  // 게임 종료
 	}
 	// 다마고치 사망
-	if (*health <= 0)
+	if (damagochi->health <= 0)
 	{
 		printf("게임이 종료되었습니다.\n");
 		return 1; // 게임 종료

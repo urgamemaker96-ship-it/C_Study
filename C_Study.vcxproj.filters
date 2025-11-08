@@ -18,20 +18,43 @@
     <ClCompile Include="Main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Damagochi.c">
+    <ClCompile Include="game_status.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Damagochi2.c">
+    <ClCompile Include="select.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Test.c">
+    <ClCompile Include="show.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="pointerTest.c">
+    <ClCompile Include="util.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="battle.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Damagochi.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game_status.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="select.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="show.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="battle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

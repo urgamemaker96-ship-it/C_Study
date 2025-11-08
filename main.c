@@ -19,10 +19,10 @@ int main(void)
 
 	// 게임 초기화
 	Init();
-	UserNameInput(name,sizeof(name)); //유저 이름을 생성한다
-	DamagochiNameInput(mainDamagochi.damaname, sizeof(mainDamagochi.damaname));//다마고치 이름을 생성한다
+	InputName("유저의 이름을 입력: ", name, sizeof(name)); //유저 이름을 생성한다
+	InputName("다마고치의 이름을 입력: ", mainDamagochi.damaname, sizeof(mainDamagochi.damaname));//다마고치 이름을 생성한다
 
-	while (!IsGameOver(&mainDamagochi.poo, &mainDamagochi.stress, &mainDamagochi.currentlevel, &mainDamagochi.health, mainDamagochi.damaname)) // 반복문 지속
+	while (!IsGameOver(&mainDamagochi)) // 반복문 지속
 	{
 		//레벨업 상태 체크
 		LevelUpRule(&mainDamagochi);
