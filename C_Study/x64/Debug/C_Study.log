@@ -1,2 +1,7 @@
-﻿  battle.c
+﻿  main.c
+C:\Users\song\source\repos\C_Study\C_Study\main.c(36,9): warning C4013: 'strcpy'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  util.c
+C:\Users\song\source\repos\C_Study\C_Study\util.c(30,29): warning C4013: 'strlen'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\song\source\repos\C_Study\C_Study\util.c(33,2): warning C4013: 'strcpy_s'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  코드를 생성하고 있습니다...
   C_Study.vcxproj -> C:\Users\song\source\repos\C_Study\C_Study\x64\Debug\C_Study.exe

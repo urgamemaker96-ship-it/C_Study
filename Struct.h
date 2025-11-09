@@ -11,4 +11,5 @@ struct Damagochi
 	int exp;
 	int currentlevel;
 	char damaname[20];
+	char mastername[20];
 }typedef(damagochi);

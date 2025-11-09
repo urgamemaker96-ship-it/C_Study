@@ -10,17 +10,48 @@
 
 int main(void)
 {	
-	damagochi mainDamagochi = { 100, 100, 100, 50, 40, 50, 40, 0, 1, "" };
-		
+	damagochi mainDamagochi = { 100, 100, 100, 50, 40, 50, 40, 0, 1, "",""};
+   
+
 	int rewardgold = 8000; // 상점 시스템 만들기 위해서 선언한 변수
 	int mainInput;
-	char name[20]; // 유저이름 받기위한 초기값 설정
 	char enemyname[20] = "오후의태양단";
+    char* userName = NULL; //동적할당 하기 위해선 먼저 NULL값으로 초기화 시켜주는게 중요하다, 포인터에 임의의 주소값이 있어서
+    char* damaName = NULL; //동적할당 하기 위해선 먼저 NULL값으로 초기화 시켜주는게 중요하다, 포인터에 임의의 주소값이 있어서
 
-	// 게임 초기화
-	Init();
-	InputName("유저의 이름을 입력: ", name, sizeof(name)); //유저 이름을 생성한다
-	InputName("다마고치의 이름을 입력: ", mainDamagochi.damaname, sizeof(mainDamagochi.damaname));//다마고치 이름을 생성한다
+  
+    // 게임 초기화
+    Init();
+
+    // 유저 이름 입력
+    JustPrint("유저");
+    userName = InputName_Malloc();
+    // 다마고치 이름 입력  
+    JustPrint("다마고치");
+    damaName = InputName_Malloc();
+
+    // 구조체에 다마고치이름 설정 후 복사해 오기
+    if (damaName != NULL) {
+        
+        strcpy(mainDamagochi.damaname, damaName);
+    }
+
+    // 구조체에 주인이름 설정 후 복사해 오기
+    if (userName != NULL) {
+       
+        strcpy(mainDamagochi.mastername, userName);
+    }
+
+    // 메모리 정리-> 동적메모리는 할당해주고 반드시 free로 해체해줘야 낭비가 안됨
+    if (userName != NULL) {
+        free(userName);
+        userName = NULL;  // 안전을 위해 NULL 설정
+    }
+    if (damaName != NULL) {
+        free(damaName);
+        damaName = NULL;  // 안전을 위해 NULL 설정
+    }
+
 
 	while (!IsGameOver(&mainDamagochi)) // 반복문 지속
 	{
@@ -28,7 +59,7 @@ int main(void)
 		LevelUpRule(&mainDamagochi);
 		
 		// 상태 정보 출력
-		ShowStatus(&mainDamagochi.health, &mainDamagochi.mana, &mainDamagochi.hungry, &mainDamagochi.poo, &mainDamagochi.stress, &mainDamagochi.exp, &rewardgold,name, mainDamagochi.damaname);
+		ShowStatus(&mainDamagochi.health, &mainDamagochi.mana, &mainDamagochi.hungry, &mainDamagochi.poo, &mainDamagochi.stress, &mainDamagochi.exp, &rewardgold, mainDamagochi.mastername, mainDamagochi.damaname);
 
 		// 유저 입력 메뉴 출력
 		ShowChoice();

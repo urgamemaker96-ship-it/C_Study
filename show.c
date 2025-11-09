@@ -1,12 +1,12 @@
 #include "show.h"
 #include <stdio.h>
 
-void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold, char* name, char* damaname)
+void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold, char* username, char* damaname)
 {
 	printf("===================================================\n");
 	printf("상태창\n");
 	printf("다마고치의 이름은 : %s\n", damaname); // 어차피 배열은 포인터라 &안적어도된다.
-	printf("%s의 주인의 이름은 : %s\n", damaname, name); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("%s의 주인의 이름은 : %s\n", damaname, username); // 어차피 배열은 포인터라 &안적어도된다.
 	printf("체력: %d\n", *health);
 	printf("마나: %d\n", *mana);
 	printf("포만감: %d\n", *hungry);
