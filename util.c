@@ -1,5 +1,5 @@
 #include "util.h"
-
+#include <string.h> //strcpy_s 사용위해서
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,10 +37,27 @@ char* InputName_Malloc()
 	return name;
 }
 
+// 다마고치 선택 함수
+int SelectDamagochiType() {
+	int choice; //입력받을 수 변수 선언
 
-void TakeDamage(int* damage, int* health)//이미 윗쪽 지역변수 health 선언되어 있어서 따로 포인터 자료형변수로 안만듬
+	printf("\n=== 다마고치 선택 ===\n");
+	printf("1. 기본 다마고치\n");
+	printf("2. 이상해씨 - 높은 체력\n");
+	printf("3. 파이리 - 높은 공격력\n");
+	printf("4. 꼬북이 - 높은 마나\n");
+
+	scanf_s("%d", &choice); //scanf_s 써야 오류안뜸
+	
+
+	return choice;
+}
+
+
+
+void TakeDamage(int damage, int* health)//이미 윗쪽 지역변수 health 선언되어 있어서 따로 포인터 자료형변수로 안만듬
 {
-	*health -= *damage;
+	*health -= damage;
 }
 int Percent(int num1) // 확률조건을 출력해주는 함수
 {
@@ -63,3 +80,4 @@ int GetAddResultOrZero(int num1, int num2, int max)
 	return result >= max ?
 		max : result;
 }
+

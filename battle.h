@@ -1,2 +1,7 @@
 #pragma once
-void Battle(int* health, int* mana, int* gochiattack, int* exp, int* rewardgold, int* stress, char* damaname, char* enemyname);
+#include "Struct.h"
+
+void Battle(damagochi*,int*, char*);
+int Skill_Isanghaessi(damagochi*);
+int Skill_paili(damagochi*);
+int Skill_kkobugi(damagochi*);

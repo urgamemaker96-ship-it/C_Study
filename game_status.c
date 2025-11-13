@@ -5,19 +5,49 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
+#include <stdbool.h> // bool 타입 써줄려면 헤더파일 추가해줘야됨
 
-void LevelUpRule(damagochi* target)
+void LevelUpRule(damagochi* target,bool forceLevelUp) // bool 타입은 기본적으로 파라메터에 false 적용시켜놔야됨
 {
-	if (target->exp >= 100 * target->currentlevel * 1.2)
+	if (forceLevelUp ||target->exp >= 100 * target->currentlevel * 1.2)
 	{
 		(target->currentlevel)++; //*(currentlevel)++ 이렇게해서 포인터가 가르키는 값을 증가시켜야 되는데 포인터 값 자체를 증가시킴 -> 오류수정
 		target->exp = 0; //포인터로 참조한 변수의값을 0으로 초기화해줌
-		target->gochiattack += 10; //포인터로 참조한 변수의값을 10씩 증감해줌
-		printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
-		printf("공격력이 %d로 증가했습니다!\n", target->gochiattack);
+		
+		// 캐릭터 이름에 따라 다른 능력치 증가
+		if (strcmp(target->damaname, "파이리") == 0) {
+			// 파이리: 공격력 성장
+			target->gochiattack += 15;
+			printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
+			printf("공격력이 크게 증가하여 %d로 증가했습니다!\n", target->gochiattack);
+
+		}
+		else if (strcmp(target->damaname, "꼬북이") == 0) {
+			// 꼬북이: 마나 성장
+			target->gochiattack += 10;
+			target->mana += 50;
+			printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
+			printf("공격력이 %d, 마나가 %d로 증가했습니다!\n", target->gochiattack, target->mana);
+
+		}
+		else if (strcmp(target->damaname, "이상해씨") == 0) {
+			// 이상해씨: 최대체력 성장
+			target->gochiattack += 10;
+			target->Maxhealth += 50;
+			printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
+			printf("공격력이 %d, 최대체력이 %d로 증가했습니다!\n", target->gochiattack, target->Maxhealth);
+
+		}
+		else {
+			// 기본타입
+			target->gochiattack += 10;
+			printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
+			printf("공격력이 %d로 증가했습니다!\n", target->gochiattack);
+		}
 	}
 
 }
+
 
 void Init()
 {
@@ -55,30 +85,30 @@ int IsGameOver(damagochi* damagochi)
 
 
 
-void Action(int num1, int* health, int* Maxhealth, int* stress, int* mana, int* poo, int* hungry, int* gochiattack, int* exp, int* rewardgold, int* currentlevel, char* damaname, char* enemyname)
+void Action(int num1, damagochi* target, char* enemyname)
 {	//전부 이중포인터 문제 때문에 파라미터변수 앞에 &안달아준거다.
 	switch (num1)
 	{
 	case 1:
-		SelectSleep(health, Maxhealth, stress, mana, damaname);
+		SelectSleep(target);
 		break;
 	case 2:
-		SelectPoop(poo, damaname);
+		SelectPoop(target);
 		break;
 	case 3:
-		SelectEat(hungry, poo, damaname);
+		SelectEat(target);
 		break;
 	case 4:
-		SelectWalk(health, mana, gochiattack, exp, rewardgold, stress, damaname, enemyname);
+		SelectWalk(target, enemyname);
 		break;
 	case 5:
-		SelectTug(health, mana, gochiattack, exp, rewardgold, stress, damaname, enemyname);
+		SelectTug(target, enemyname);
 		break;
 	case 6:
-		SelectShop(rewardgold, Maxhealth, gochiattack, currentlevel);
+		SelectShop(target);
 		break;
 	case 7:
-		SelectGuide(damaname);
+		SelectGuide(target);
 		break;
 	}
 }

@@ -1,19 +1,22 @@
 #include "show.h"
 #include <stdio.h>
+#include "Struct.h"
 
-void ShowStatus(int* health, int* mana, int* hungry, int* poo, int* stress, int* exp, int* rewardgold, char* username, char* damaname)
+void ShowStatus(damagochi* selected)
 {
 	printf("===================================================\n");
 	printf("상태창\n");
-	printf("다마고치의 이름은 : %s\n", damaname); // 어차피 배열은 포인터라 &안적어도된다.
-	printf("%s의 주인의 이름은 : %s\n", damaname, username); // 어차피 배열은 포인터라 &안적어도된다.
-	printf("체력: %d\n", *health);
-	printf("마나: %d\n", *mana);
-	printf("포만감: %d\n", *hungry);
-	printf("화장실: %d\n", *poo);
-	printf("스트레스: %d\n", *stress);
-	printf("경험치: %d\n", *exp);
-	printf("현재골드: %d\n", *rewardgold);
+	printf("다마고치의 이름은 : %s\n", selected->damaname); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("%s의 주인의 이름은 : %s\n", selected->damaname, selected->mastername); // 어차피 배열은 포인터라 &안적어도된다.
+	printf("체력: %d\n", selected->health);
+	printf("마나: %d\n", selected->mana);
+	printf("공격력: %d\n", selected->gochiattack);
+	printf("특수공격력(스킬): %d\n", selected->specialattack);
+	printf("포만감: %d\n", selected->hungry);
+	printf("화장실: %d\n", selected->poo);
+	printf("스트레스: %d\n", selected->stress);
+	printf("경험치: %d\n", selected->exp);
+	printf("현재골드: %d\n", selected->rewardgold);
 	printf("===================================================\n");
 }
 void ShowChoice()
@@ -22,12 +25,12 @@ void ShowChoice()
 	printf("1.잠자기 2.응가하기 3.밥주기 4.산책하기 5.터그놀이 6.상점 7.다마고치 가이드라인\n");
 	printf("=======================================================================================\n");
 }
-void ShowBattle(int num1, int* num2, int* num3)// 적 체력은 윗 블록에 지역변수로 이미 들어가 있으나 나머지 체력, 마나 변수들은 그러지 못해 포인터 타입으로 만들어줌
+void ShowBattle(int enemyhealth, damagochi* selected)// 적 체력은 윗 블록에 지역변수로 이미 들어가 있으나 나머지 체력, 마나 변수들은 그러지 못해 포인터 타입으로 만들어줌
 {
 	printf("\n----- 전투 -----\n");
-	printf("적 체력: %d\n", num1);
-	printf("내 체력: %d\n", *num2);
-	printf("내 마나: %d\n", *num3);
+	printf("적 체력: %d\n", enemyhealth);
+	printf("내 체력: %d\n", selected->health);
+	printf("내 마나: %d\n", selected->mana);
 	printf("원하는 숫자를 눌러 대응 하십쇼\n");
 	printf("1.공격 2.스킬 3.도망\n");
 	printf("입력: ");

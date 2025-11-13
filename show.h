@@ -1,6 +1,8 @@
 #pragma once
-void ShowStatus(int*, int*, int*, int*, int*, int*, int*, char*, char*);
+#include "Struct.h"
+
+void ShowStatus(damagochi*);
 void ShowShop();
 void ShowChoice();
-void ShowBattle(int, int*, int*);
+void ShowBattle(int, damagochi*);
 void ShowDamage(char*, char*, int);

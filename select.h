@@ -1,8 +1,12 @@
+
 #pragma once
-void SelectSleep(int*, int*, int*, int*, char*);
-void SelectPoop(int*, char*);
-void SelectEat(int*, int*, char*);
-void SelectWalk(int*, int*, int*, int*, int*, int*, char*, char*);
-void SelectTug(int*, int*, int*, int*, int*, int*, char*, char*);
-void SelectShop(int*, int*, int*, int*);
-void SelectGuide(char*);
+#include "Struct.h"
+
+
+void SelectSleep(damagochi*);
+void SelectPoop(damagochi*);
+void SelectEat(damagochi*);
+void SelectWalk(damagochi*, char*);
+void SelectTug(damagochi*, char*);
+void SelectShop(damagochi*);
+void SelectGuide(damagochi*);

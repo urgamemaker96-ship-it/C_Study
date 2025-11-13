@@ -1,6 +1,7 @@
 #pragma once
 #include"Struct.h"
+#include <stdbool.h> // bool 타입 써줄려면 헤더파일 추가해줘야됨
 void Init();
 int IsGameOver(damagochi*);
-void Action(int, int*, int*, int*, int*, int*, int*, int*, int*, int*, int*, char*, char*);
-void LevelUpRule(damagochi*);
+void Action(int, damagochi*, char*);
+void LevelUpRule(damagochi*,bool);
