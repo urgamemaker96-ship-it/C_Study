@@ -3,7 +3,7 @@
 #include "battle.h"
 #include "Struct.h"
 #include <stdio.h>
-
+#include< string.h >
 
 void Battle(damagochi* selected, int* rewardgold, char* enemyname)
 {
@@ -51,7 +51,7 @@ void Battle(damagochi* selected, int* rewardgold, char* enemyname)
 			}
 			else
 			{
-				int skillDamage = 0;
+				int skillDamage = 0; // 스킬함수에서 호출된 스킬 데미지 값을 받아주는 변수
 
 				// 다마고치 이름에 따라 스킬 함수 호출 -> strcmp 이라고 문자열 비교해주는 함수 있어서 그걸로 처리함
 				if (strcmp(selected->damaname, "이상해씨") == 0)
@@ -111,40 +111,69 @@ void Battle(damagochi* selected, int* rewardgold, char* enemyname)
 	}
 }
 int Skill_Isanghaessi(damagochi* type)
-{	
-	if (type->mana < 50) {
-		printf("마나가 부족해서 스킬을 사용할 수 없습니다! (현재 %d)\n", type->mana);
-		return 0; // 리턴 꼭 해줘야된다, 안해주면 마나 -단위됨, 이 조건 맞으면 출력만하고 해당함수 바로종료
+{
+	damaskill* skill = &type->skill_isanghaessi;
+
+	if (type->mana < skill->mana_cost) {
+		printf("마나가 부족해서 스킬을 사용할 수 없습니다! (현재 %d, 필요 %d)\n",
+			type->mana, skill->mana_cost);
+		return 0; // return 0 해주는 이유 마나 없으면 바로 함수종료함 , 만약 0처리 안해주면 계속 마나 깎임
 	}
-	type->mana -= 50;
-	int damage = (type->specialattack * 2) + (type->Maxhealth* 0.2); // 스킬데미지 최대체력 비례공력추가
-	printf("이상해씨의 덩굴채찍! %d 데미지! ,마나 %d를 사용했습니다!\n", damage, type->mana);
+
+	type->mana -= skill->mana_cost; // 기본 설정값은 마나에서 구조체 스킬에서 불러온 마나 코스트를 깎는것이다.
+
+	// 스킬 레벨에 따른 데미지 계산 (레벨당 20% 증가) + 특성(공격력,최대체력,마나)에 맞게 또 1.2 증가
+	float level_bonus = 1.0f + ((skill->level - 1) * 0.2f);
+	int damage = (int)((type->specialattack * level_bonus) + // 레벨업시 공격력 1.2배 증가 + 특성에 맞게 1.2 배증가
+		(type->Maxhealth * skill->bonus_ratio));//bounus_ratio 변수는 float 형이라서 int 형으로 강제변환
+
+	printf("%s의 %s! %d 데미지! (스킬Lv.%d), 마나 %d를 사용했습니다!\n", // 구조체에서 불러온 다마고치가 스킬 구조체에서 불러온 스킬명을 가지고 데미지 출력 및 마나코스트 출력
+		type->damaname, skill->name, damage, skill->level, skill->mana_cost);
 	return damage;
 }
 
 int Skill_paili(damagochi* type)
 {
-	if (type->mana < 50) {
-		printf("마나가 부족해서 스킬을 사용할 수 없습니다! (현재 %d)\n", type->mana);
-		return 0; // 리턴 꼭 해줘야된다, 안해주면 마나 -단위됨, 이 조건 맞으면 출력만하고 해당함수 바로종료
+	damaskill* skill = &type->skill_paili;
+
+	if (type->mana < skill->mana_cost) {
+		printf("마나가 부족해서 스킬을 사용할 수 없습니다! (현재 %d, 필요 %d)\n",
+			type->mana, skill->mana_cost);
+		return 0;// return 0 해주는 이유 마나 없으면 바로 함수종료함 , 만약 0처리 안해주면 계속 마나 깎임
 	}
-	type->mana -= 50;
-	int damage = (type->specialattack * 2) + (type->gochiattack * 0.2); //스킬데미지 공격력 비례공력추가
-	printf("파이리의 화염방사! %d 데미지! ,마나 %d를 사용했습니다!\n", damage, type->mana);
+
+	type->mana -= skill->mana_cost;// 기본 설정값은 마나에서 구조체 스킬에서 불러온 마나 코스트를 깎는것이다.
 	
+	// 스킬 레벨에 따른 데미지 계산 (레벨당 20% 증가) + 특성(공격력,최대체력,마나)에 맞게 또 1.2 증가
+	float level_bonus = 1.0f + ((skill->level - 1) * 0.2f);
+	int damage = (int)((type->specialattack * level_bonus) +// 레벨업시 공격력 1.2배 증가 + 특성에 맞게 1.2 배증가
+		(type->gochiattack * skill->bonus_ratio)); //bounus_ratio 변수는 float 형이라서 int 형으로 강제변환
+
+	printf("%s의 %s! %d 데미지! (스킬Lv.%d), 마나 %d를 사용했습니다!\n",// 구조체에서 불러온 다마고치가 스킬 구조체에서 불러온 스킬명을 가지고 데미지 출력 및 마나코스트 출력
+		type->damaname, skill->name, damage, skill->level, skill->mana_cost);
+
 	return damage;
 }
 
 int Skill_kkobugi(damagochi* type)
 {
-	if (type->mana < 50) {
-		printf("마나가 부족해서 스킬을 사용할 수 없습니다!(현재 %d)\n", type->mana);
-		return 0; // 리턴 꼭 해줘야된다, 안해주면 마나 -단위됨, 이 조건 맞으면 출력만하고 해당함수 바로종료
+	damaskill* skill = &type->skill_kkobugi;
+
+	if (type->mana < skill->mana_cost) {
+		printf("마나가 부족해서 스킬을 사용할 수 없습니다! (현재 %d, 필요 %d)\n",
+			type->mana, skill->mana_cost);
+		return 0;// return 0 해주는 이유 마나 없으면 바로 함수종료함 , 만약 0처리 안해주면 계속 마나 깎임
 	}
-	type->mana -= 50;
-	int damage = (type->specialattack * 2) +((type->mana * 0.2));//스킬데미지 마나 비례공력추가
-	printf("꼬북이의 물대포! %d 데미지! ,마나 %d를 사용했습니다!\n", damage, type->mana);
+
+	type->mana -= skill->mana_cost;// 기본 설정값은 마나에서 구조체 스킬에서 불러온 마나 코스트를 깎는것이다.
+	
+	// 스킬 레벨에 따른 데미지 계산 (레벨당 20% 증가) + 특성(공격력,최대체력,마나)에 맞게 또 1.2 증가
+	float level_bonus = 1.0f + ((skill->level - 1) * 0.2f);
+	int damage = (int)((type->specialattack * level_bonus) +// 레벨업시 공격력 1.2배 증가 + 특성에 맞게 1.2 배증가
+		(type->mana * skill->bonus_ratio));//bounus_ratio 변수는 float 형이라서 int 형으로 강제변환
+
+	printf("%s의 %s! %d 데미지! (스킬Lv.%d), 마나 %d를 사용했습니다!\n",// 구조체에서 불러온 다마고치가 스킬 구조체에서 불러온 스킬명을 가지고 데미지 출력 및 마나코스트 출력
+		type->damaname, skill->name, damage, skill->level, skill->mana_cost);
 
 	return damage;
-
 }

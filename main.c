@@ -54,8 +54,8 @@ int main(void)
         printf("\n꼬부기를 선택하셨습니다!\n");
         break;
     }
-    
-
+    // 선택했으면 해당 다마고치 스킬상태 초기화 해주기
+    InitializeSkills(selectedDamagochi, damaType);
    
 
     // 구조체에 주인이름 설정 후 복사해 오기

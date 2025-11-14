@@ -132,7 +132,7 @@ void SelectShop(damagochi* selected)
 			{
 				selected->rewardgold -= 400; // 400골드 소모
 
-				//레벨업 처리
+				//강제레벨업 처리 -> 기본값은 false 이다 , 강제레벨업 함수를 또 만들어 주는것보단 bool 타입으로 처리하는게 효율적이다
 				LevelUpRule(selected,true);// 어떤 다마고치 타입의 레벨업인지 설정해줌 -> 다마고치 레벨 조건대로 레벨스텟 조정됨	
 				
 				printf("레벨 업 아이템을 사용했습니다!\n");
@@ -154,4 +154,82 @@ void SelectGuide(damagochi* selected)
 	printf("%s는 레벨이 10이되면 최종성장하며 게임이 클리어 됩니다..\n", selected->damaname);
 	printf("%s는 불가능한 선택을 할때 ,도망칠때 스트레스를 10씩 받습니다.\n", selected->damaname);
 	printf("%s는 잠을 자거나, 적을 쓰러뜨릴 경우 스트레스를 회복합니다 .\n", selected->damaname);
+}
+
+// 스킬업그레이드 선택 함수
+void UpgradeSkill(damagochi* type) 
+{
+	if (type->skillpoint == 0) { // 구조체에서 가져온 스킬포인트가 0이면
+		printf("스킬 포인트가 부족합니다!\n");
+		return; // 스킬포인트 없으면 바로 함수 종료
+	}
+
+	printf("\n=== 스킬 강화 ===\n");
+	printf("보유한 스킬 포인트: %d\n", type->skillpoint);
+
+	// 각 다마고치 타입에 따라 다른 스킬 표시
+	if (strcmp(type->damaname, "이상해씨") == 0) { // 이상해씨이름을 가진 구조체면
+		damaskill* skill = &type->skill_isanghaessi; // 다마고치 안에 다마고치의 스킬 구조체가 있어서 그 구조체의 스킬멤버주소를 Skill 포인터 변수에 초기화시킴
+		int current_damage = CountSkillDamage(type, 1,false);
+		int next_damage = CountSkillDamage(type, 1, true);
+		skill->mana_cost += 10; //스킬 업 할때마다 마나코스트 10씩 증가
+
+		printf("1. %s (Lv.%d → Lv.%d)\n", skill->name, skill->level, skill->level + 1);
+		printf("   현재 데미지: %d → 다음 레벨 데미지: %d (+%d)\n",
+			current_damage, next_damage, next_damage - current_damage);
+	}
+	else if (strcmp(type->damaname, "파이리") == 0) {
+		damaskill* skill = &type->skill_paili;
+		int current_damage = CountSkillDamage(type, 2, false);
+		int next_damage = CountSkillDamage(type, 2, true);
+		skill->mana_cost += 10; //스킬 업 할때마다 마나코스트 10씩 증가
+
+		printf("1. %s (Lv.%d → Lv.%d)\n", skill->name, skill->level, skill->level + 1);
+		printf("   현재 데미지: %d → 다음 레벨 데미지: %d (+%d)\n",
+			current_damage, next_damage, next_damage - current_damage);
+	}
+	else if (strcmp(type->damaname, "꼬북이") == 0) {
+		damaskill* skill = &type->skill_kkobugi;
+		int current_damage = CountSkillDamage(type, 3, false);
+		int next_damage = CountSkillDamage(type, 3, true);
+		skill->mana_cost += 10; //스킬 업 할때마다 마나코스트 10씩 증가
+
+		printf("1. %s (Lv.%d → Lv.%d)\n", skill->name, skill->level, skill->level + 1);
+		printf("   현재 데미지: %d → 다음 레벨 데미지: %d (+%d)\n",
+			current_damage, next_damage, next_damage - current_damage);
+	}
+
+	printf("0. 취소\n");
+	printf("강화할 스킬을 선택하세요: ");
+
+	int choice;
+	scanf_s("%d", &choice);
+
+	if (choice == 0) {
+		printf("강화를 취소했습니다.\n");
+		return;
+	}
+
+	if (choice == 1) {
+		// 해당 다마고치의 스킬 강화
+		if (strcmp(type->damaname, "이상해씨") == 0) {
+			type->skill_isanghaessi.level++;
+			type->skillpoint--;
+			printf("%s가 Lv.%d로 강화되었습니다! 데미지가 증가합니다.\n",
+				type->skill_isanghaessi.name, type->skill_isanghaessi.level); // 스킬이름 표시해주고 레벨도 증가
+		}
+		else if (strcmp(type->damaname, "파이리") == 0) {
+			type->skill_paili.level++;
+			type->skillpoint--;
+			printf("%s가 Lv.%d로 강화되었습니다! 데미지가 증가합니다.\n",
+				type->skill_paili.name, type->skill_paili.level);// 스킬이름 표시해주고 레벨도 증가
+		}
+		else if (strcmp(type->damaname, "꼬북이") == 0) {
+			type->skill_kkobugi.level++;
+			type->skillpoint--;
+			printf("%s가 Lv.%d로 강화되었습니다! 데미지가 증가합니다.\n",
+				type->skill_kkobugi.name, type->skill_kkobugi.level);// 스킬이름 표시해주고 레벨도 증가
+		}
+	}
+
 }

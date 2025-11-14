@@ -1,7 +1,7 @@
 #include "game_status.h"
 #include "select.h"
 #include "Struct.h"
-
+#include "show.h"
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
@@ -14,6 +14,19 @@ void LevelUpRule(damagochi* target,bool forceLevelUp) // bool 타입은 기본적으로 
 		(target->currentlevel)++; //*(currentlevel)++ 이렇게해서 포인터가 가르키는 값을 증가시켜야 되는데 포인터 값 자체를 증가시킴 -> 오류수정
 		target->exp = 0; //포인터로 참조한 변수의값을 0으로 초기화해줌
 		
+		target->skillpoint++;
+		printf("스킬 포인트 1개를 얻었습니다! (현재 %d개)\n", target->skillpoint);
+
+		// 레벨업 하면 동시에 스킬 강화 선택지 제공 
+		printf("스킬을 강화하시겠습니까? (1: 예, 0: 아니오): ");
+		int choice;
+		scanf_s("%d", &choice);
+
+		if (choice == 1) {
+			
+			UpgradeSkill(target);
+		}
+
 		// 캐릭터 이름에 따라 다른 능력치 증가
 		if (strcmp(target->damaname, "파이리") == 0) {
 			// 파이리: 공격력 성장
@@ -39,7 +52,7 @@ void LevelUpRule(damagochi* target,bool forceLevelUp) // bool 타입은 기본적으로 
 
 		}
 		else {
-			// 기본타입
+			// 기본타입 -> 꼬북이, 이상해씨, 파이리 이름이 아니면 기본으로 나옴
 			target->gochiattack += 10;
 			printf("\n 레벨 업! 현재 레벨: %d\n", target->currentlevel);
 			printf("공격력이 %d로 증가했습니다!\n", target->gochiattack);
@@ -62,7 +75,8 @@ int IsGameOver(damagochi* damagochi)
 	{
 		printf("%s가 병에 걸렸습니다.\n", damagochi->damaname);
 		printf("게임이 종료되었습니다.\n");
-		return 1; // 게임 종료
+		return 1; // 게임 종료 -> 이거 삭제해 버리면 죽어도 계속 다마고치로 진행됨
+		
 	}
 	//승리 조건달아주기 -> break를 함수 내에서 처리하지 못할것 같아 남겨둠
 	if (damagochi->currentlevel == 10)
@@ -78,7 +92,7 @@ int IsGameOver(damagochi* damagochi)
 		return 1; // 게임 종료
 	}
 
-	return 0;
+	return 0; // 위에 사망조건 3개 가 아니면 그냥 함수 종료
 }
 
 
@@ -109,6 +123,12 @@ void Action(int num1, damagochi* target, char* enemyname)
 		break;
 	case 7:
 		SelectGuide(target);
+		break;
+	case 8: //스킬강화
+		UpgradeSkill(target);
+		break;
+	case 9: // 스킬정보
+		ShowSkillInfo(target);
 		break;
 	}
 }

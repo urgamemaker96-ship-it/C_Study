@@ -10,3 +10,5 @@ void SelectWalk(damagochi*, char*);
 void SelectTug(damagochi*, char*);
 void SelectShop(damagochi*);
 void SelectGuide(damagochi*);
+
+void UpgradeSkill(damagochi*);//스킬업그레이드 함수 선언

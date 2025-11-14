@@ -6,3 +6,5 @@ void ShowShop();
 void ShowChoice();
 void ShowBattle(int, damagochi*);
 void ShowDamage(char*, char*, int);
+
+void ShowSkillInfo(damagochi*);

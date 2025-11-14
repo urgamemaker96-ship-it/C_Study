@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:game_status.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:select.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Damagochi.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:Damagochi.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:select.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Struct.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:Struct.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:game_status.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:game_status.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:show.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -23,36 +47,12 @@
       "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:battle.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:util.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:game_status.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:select.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:util.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:show.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Struct.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:Struct.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\battle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:battle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Damagochi.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{FDA46AFD-E781-43DF-8A44-B33E19437C6D}|C_Study.vcxproj|solutionrelative:Damagochi.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,95 +62,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "battle.c",
-              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\battle.c",
-              "RelativeDocumentMoniker": "battle.c",
-              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\battle.c",
-              "RelativeToolTip": "battle.c",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAJAAAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-11-08T10:36:54.597Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Struct.h",
-              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Struct.h",
-              "RelativeDocumentMoniker": "Struct.h",
-              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Struct.h",
-              "RelativeToolTip": "Struct.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-08T09:42:11.11Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "select.h",
-              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.h",
-              "RelativeDocumentMoniker": "select.h",
-              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.h",
-              "RelativeToolTip": "select.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-08T09:42:08.833Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "util.c",
-              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.c",
-              "RelativeDocumentMoniker": "util.c",
-              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.c",
-              "RelativeToolTip": "util.c",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAC0AAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-11-08T09:41:02.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "show.c",
-              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.c",
-              "RelativeDocumentMoniker": "show.c",
-              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.c",
-              "RelativeToolTip": "show.c",
-              "ViewState": "AgIAABwAAAAAAAAAAAAAACUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-11-08T09:39:25.024Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "select.c",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.c",
               "RelativeDocumentMoniker": "select.c",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.c",
               "RelativeToolTip": "select.c",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAAAIcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAANsAAAAAAAAAAAAAAOIAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-11-08T09:30:47.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "game_status.c",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c",
               "RelativeDocumentMoniker": "game_status.c",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.c",
               "RelativeToolTip": "game_status.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-11-08T09:27:54.537Z",
               "EditorCaption": ""
@@ -163,66 +98,129 @@
               "RelativeDocumentMoniker": "main.c",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\main.c",
               "RelativeToolTip": "main.c",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFsAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAFoAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-11-08T09:27:30.696Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "show.h",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.h",
               "RelativeDocumentMoniker": "show.h",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.h",
               "RelativeToolTip": "show.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-08T09:42:09.621Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "util.h",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.h",
               "RelativeDocumentMoniker": "util.h",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.h",
               "RelativeToolTip": "util.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-08T09:48:53.465Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "Damagochi.txt",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Damagochi.txt",
               "RelativeDocumentMoniker": "Damagochi.txt",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Damagochi.txt",
               "RelativeToolTip": "Damagochi.txt",
-              "ViewState": "AgIAALMBAAAAAAAAAAAiwL8BAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALMBAAAAAAAAAAAiwMABAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-11-09T08:50:08.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-09T08:50:08.003Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "game_status.h",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h",
               "RelativeDocumentMoniker": "game_status.h",
               "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\game_status.h",
               "RelativeToolTip": "game_status.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-13T00:34:03.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 10,
+              "Title": "battle.c",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\battle.c",
+              "RelativeDocumentMoniker": "battle.c",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\battle.c",
+              "RelativeToolTip": "battle.c",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAewEYAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-11-08T10:36:54.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Struct.h",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Struct.h",
+              "RelativeDocumentMoniker": "Struct.h",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\Struct.h",
+              "RelativeToolTip": "Struct.h",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-08T09:42:11.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "select.h",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.h",
+              "RelativeDocumentMoniker": "select.h",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\select.h",
+              "RelativeToolTip": "select.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-08T09:42:08.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "util.c",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.c",
+              "RelativeDocumentMoniker": "util.c",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\util.c",
+              "RelativeToolTip": "util.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-11-08T09:41:02.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "show.c",
+              "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.c",
+              "RelativeDocumentMoniker": "show.c",
+              "ToolTip": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\show.c",
+              "RelativeToolTip": "show.c",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAE0AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-11-08T09:39:25.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "battle.h",
               "DocumentMoniker": "C:\\Users\\song\\source\\repos\\C_Study\\C_Study\\battle.h",
               "RelativeDocumentMoniker": "battle.h",
@@ -230,8 +228,7 @@
               "RelativeToolTip": "battle.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-08T10:37:03.02Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-08T10:37:03.02Z"
             }
           ]
         }

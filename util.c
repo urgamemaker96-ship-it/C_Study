@@ -2,6 +2,8 @@
 #include <string.h> //strcpy_s 사용위해서
 #include <stdio.h>
 #include <stdlib.h>
+#include "Struct.h"
+#include <stdbool.h> // bool 타입 써줄려면 헤더파일 추가해줘야됨
 
 int UserInput()
 {
@@ -52,7 +54,59 @@ int SelectDamagochiType() {
 
 	return choice;
 }
+void InitializeSkills(damagochi* type, int inputnum)
+{
+	switch (inputnum) { // 일부러 2, 3, 4 순으로 맞춰준거임 메인에서 1번은 기본 다마고치라서
+	case 2: // 이상해씨
+		strcpy_s(type->skill_isanghaessi.name, sizeof(type->skill_isanghaessi.name), "덩굴채찍");
+		type->skill_isanghaessi.level = 1; // 구조체에서 기본스킬레벨 1로 초기화
+		type->skill_isanghaessi.bonus_ratio = 0.2f; // 구조체에서 레벨업시 스킬공격력 증가 배수
+		type->skill_isanghaessi.mana_cost = 50; // 구조체에서 마나코스트 가져옴 -> 이걸로 구조체 다마고치가 가진 마나를 빼줄거임
+		break;
+	case 3: // 파이리
+		strcpy_s(type->skill_paili.name, sizeof(type->skill_isanghaessi.name), "화염방사");
+		type->skill_paili.level = 1;// 구조체에서 기본스킬레벨 1로 초기화
+		type->skill_paili.bonus_ratio = 0.2f;// 구조체에서 레벨업시 스킬공격력 증가 배수
+		type->skill_paili.mana_cost = 50;// 구조체에서 마나코스트 가져옴 -> 이걸로 구조체 다마고치가 가진 마나를 빼줄거임
+		break;
+	case 4: // 꼬부기
+		strcpy_s(type->skill_kkobugi.name, sizeof(type->skill_isanghaessi.name), "물대포");
+		type->skill_kkobugi.level = 1;// 구조체에서 기본스킬레벨 1로 초기화
+		type->skill_kkobugi.bonus_ratio = 0.2f;// 구조체에서 레벨업시 스킬공격력 증가 배수
+		type->skill_kkobugi.mana_cost = 50;	 // 구조체에서 마나코스트 가져옴 -> 이걸로 구조체 다마고치가 가진 마나를 빼줄거임
+		break;
+	}
+}
 
+// 스킬 데미지 계산 함수 (실제 마나는 소모하지 않음) -> 스킬함수 로직 그대로 가져와서 계산만함
+int CountSkillDamage(damagochi* type, int skill_type, bool Isnextlevel)
+{
+	switch (skill_type)
+	{
+	case 1: // 이상해씨 스킬
+	{
+		damaskill* skill = &type->skill_isanghaessi;
+		// Isnextlevel에 따라 level_bonus 계산 방식 변경
+		float level_bonus = 1.0f + ((skill->level - (Isnextlevel ? 0 : 1)) * 0.2f); // Isnextlevel 참이면 0 아니면 1
+		return (int)((type->specialattack * level_bonus) +
+			(type->Maxhealth * skill->bonus_ratio));
+	}
+	case 2: // 파이리 스킬
+	{
+		damaskill* skill = &type->skill_paili;
+		float level_bonus = 1.0f + ((skill->level - (Isnextlevel ? 0 : 1)) * 0.2f); //Isnextlevel 참이면 0 아니면 1
+		return (int)((type->specialattack * level_bonus) +
+			(type->gochiattack * skill->bonus_ratio));
+	}
+	case 3: // 꼬부기 스킬
+	{
+		damaskill* skill = &type->skill_kkobugi;
+		float level_bonus = 1.0f + ((skill->level - (Isnextlevel ? 0 : 1)) * 0.2f);//Isnextlevel 참이면 0 아니면 1
+		return (int)((type->specialattack * level_bonus) +
+			(type->mana * skill->bonus_ratio));
+	}
+	}
+}
 
 
 void TakeDamage(int damage, int* health)//이미 윗쪽 지역변수 health 선언되어 있어서 따로 포인터 자료형변수로 안만듬
