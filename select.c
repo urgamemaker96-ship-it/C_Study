@@ -1,4 +1,5 @@
 #include "select.h"
+#include "game_status.h"
 #include "show.h"
 #include "util.h"
 #include "battle.h"

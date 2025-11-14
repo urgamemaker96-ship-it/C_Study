@@ -19,7 +19,7 @@ void JustPrint(char* str)
 	printf("%s 이름을 입력 : ", str);
 }
 
-char* InputName_Malloc()
+char* InputName_Malloc() // 말그대로 malloc 동적할당
 {
 	
 	// 찾아보니 한글 글자일 경우 2~3바이트라고 한다, 못해도 32글자 까지는 받고 싶어서 안전하게 64크기 배열만듬
@@ -105,6 +105,57 @@ int CountSkillDamage(damagochi* type, int skill_type, bool Isnextlevel)
 		return (int)((type->specialattack * level_bonus) +
 			(type->mana * skill->bonus_ratio));
 	}
+	}
+}
+
+//다시 할당 해주는 거니깐 이번엔 메모리 할당크기를 좀 늘려봄 -> realloc 씀
+void RenameCharacter(damagochi* selected, bool IsDamagochi)
+{
+	
+	// 현재 이름과 새로운 이름 입력 메시지를 조건에 따라 다르게 출력
+	char* currentName = IsDamagochi ? selected->damaname : selected->mastername; //IsDamagochi 다마고치 참이면 다마고치이름 거짓이면 주인이름
+	char* nameType = IsDamagochi ? "다마고치" : "주인"; //IsDamagochi 다마고치 참이면 다마고치이름 거짓이면 주인이름
+
+	printf("현재 %s 이름: %s\n", nameType, currentName);
+	printf("새로운 %s 이름을 입력하세요: ", nameType);
+
+	char temp[128];
+	scanf_s("%127", temp, (unsigned)sizeof(temp));
+
+	// realloc으로 메모리 재할당
+	size_t new_size = strlen(temp) + 1;
+	char** targetName = IsDamagochi ? &selected->damaname : &selected->mastername;
+
+	char* new_name = (char*)realloc(*targetName, new_size);
+
+	*targetName = new_name;
+	strcpy_s(*targetName, new_size, temp);
+	printf("%s 이름이 %s로 변경되었습니다.\n", nameType, *targetName);
+}
+
+// 메모리 할당 및 복사 함수 -> 다마고치 이름 받아서 처리간편화 하기 위해 만듬
+char* AllocateAndCopyName(char* source)
+{
+	size_t len = strlen(source) + 1; // 다마고치보다 무조건 1칸큼
+	char* new_name = (char*)malloc(len); // 길이만큼 동적할당해줌
+	if (new_name != NULL) {
+		strcpy_s(new_name, len, source); //받은 이름을 그대로 복사 붙어넣기로 값 초기화 해줌
+	}
+	return new_name;
+}
+
+// 모든 이름 메모리 해제
+void FreeDamagochiNames(damagochi* selected)
+{
+	if (selected != NULL) {
+		if (selected->damaname != NULL) {
+			free(selected->damaname);
+			selected->damaname = NULL;
+		}
+		if (selected->mastername != NULL) {
+			free(selected->mastername);
+			selected->mastername = NULL;
+		}
 	}
 }
 

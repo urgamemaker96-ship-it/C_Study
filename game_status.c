@@ -1,9 +1,11 @@
 #include "game_status.h"
 #include "select.h"
 #include "Struct.h"
+#include "util.h"
 #include "show.h"
 #include <stdlib.h>
 #include <time.h>
+#include<string.h>
 #include <stdio.h>
 #include <stdbool.h> // bool 타입 써줄려면 헤더파일 추가해줘야됨
 
@@ -130,5 +132,24 @@ void Action(int num1, damagochi* target, char* enemyname)
 	case 9: // 스킬정보
 		ShowSkillInfo(target);
 		break;
+	case 10:  // 이름 변경 서브 메뉴
+	{
+		int renameChoice;
+		ShowRenameMenu();
+		scanf_s("%d", &renameChoice);
+
+		switch (renameChoice) {
+		case 1:
+			RenameCharacter(target, true);  // 다마고치 이름 변경
+			break;
+		case 2:
+			RenameCharacter(target, false); // 주인 이름 변경
+			break;
+		case 0:
+			printf("이름 변경을 취소했습니다.\n");
+			break;
+		}
+	}
+	break;
 	}
 }

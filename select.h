@@ -1,7 +1,5 @@
-
 #pragma once
 #include "Struct.h"
-
 
 void SelectSleep(damagochi*);
 void SelectPoop(damagochi*);
