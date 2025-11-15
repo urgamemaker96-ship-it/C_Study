@@ -4,8 +4,8 @@
 void SelectSleep(damagochi*);
 void SelectPoop(damagochi*);
 void SelectEat(damagochi*);
-void SelectWalk(damagochi*, char*);
-void SelectTug(damagochi*, char*);
+void SelectWalk(damagochi*,damagochi*,capture*);
+void SelectTug(damagochi*,damagochi*, capture*);
 void SelectShop(damagochi*);
 void SelectGuide(damagochi*);
 

@@ -36,5 +36,14 @@ struct Damagochi
 
 }typedef(damagochi);
 
+struct CaptureDamagochi
+{	
+	// 포획된 다마고치 포인터 배열 -> 더블포인터 이유는 구조체에서 다마고치 데이터 가져오고 또 그걸 배열로 처리하기때문에 더블포인터씀
+	damagochi** capturedList; // 2차원 배열 생각 -> 처음포인터에 다마고치들의 주소값을 나열해주고 그 주소값들을 인덱스로 생각해서 순차적으로 접근시킨다.
+							  // capturedList[0] -> 이상해씨 정보 ,capturedList[1] 	 -> 파이리 정보 , capturedList[2] -> 꼬부기정보				
 
+	int count;                // 포획된 수
+	int capacity;             // 현재 할당된 크기 (최대 수용 가능한 포인터 수)
+
+}typedef(capture);
 

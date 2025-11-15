@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "Struct.h"
 #include <stdbool.h> // bool 타입 써줄려면 헤더파일 추가해줘야됨
+#include <string.h>
 
 void SelectSleep(damagochi* selected)
 {
@@ -56,11 +57,11 @@ void SelectEat(damagochi* selected)
 	}
 }
 
-void SelectWalk(damagochi* selected, char* enemyname)
+void SelectWalk(damagochi* selected, damagochi* enemy,capture* collection)
 {
 	if (Percent(50))
 	{
-		Battle(selected, &selected->rewardgold, enemyname);
+		Battle(selected, enemy, &selected->rewardgold, collection);
 	}
 	else
 	{
@@ -77,11 +78,11 @@ void SelectWalk(damagochi* selected, char* enemyname)
 	}
 }
 
-void SelectTug(damagochi* selected, char* enemyname)
+void SelectTug(damagochi* selected, damagochi* enemy,capture* collection)
 {
 	if (Percent(60))
 	{
-		Battle(selected, &selected->rewardgold, enemyname);
+		Battle(selected, enemy, &selected->rewardgold, collection);
 	}
 	else
 	{
@@ -169,7 +170,8 @@ void UpgradeSkill(damagochi* type)
 	printf("보유한 스킬 포인트: %d\n", type->skillpoint);
 
 	// 각 다마고치 타입에 따라 다른 스킬 표시
-	if (strcmp(type->damaname, "이상해씨") == 0) { // 이상해씨이름을 가진 구조체면
+	if (strcmp(type->damaname, "이상해씨") == 0)
+	{ // 이상해씨이름을 가진 구조체면
 		damaskill* skill = &type->skill_isanghaessi; // 다마고치 안에 다마고치의 스킬 구조체가 있어서 그 구조체의 스킬멤버주소를 Skill 포인터 변수에 초기화시킴
 		int current_damage = CountSkillDamage(type, 1,false);
 		int next_damage = CountSkillDamage(type, 1, true);
@@ -179,7 +181,8 @@ void UpgradeSkill(damagochi* type)
 		printf("   현재 데미지: %d → 다음 레벨 데미지: %d (+%d)\n",
 			current_damage, next_damage, next_damage - current_damage);
 	}
-	else if (strcmp(type->damaname, "파이리") == 0) {
+	else if (strcmp(type->damaname, "파이리") == 0)
+	{
 		damaskill* skill = &type->skill_paili;
 		int current_damage = CountSkillDamage(type, 2, false);
 		int next_damage = CountSkillDamage(type, 2, true);
@@ -189,7 +192,8 @@ void UpgradeSkill(damagochi* type)
 		printf("   현재 데미지: %d → 다음 레벨 데미지: %d (+%d)\n",
 			current_damage, next_damage, next_damage - current_damage);
 	}
-	else if (strcmp(type->damaname, "꼬북이") == 0) {
+	else if (strcmp(type->damaname, "꼬북이") == 0)
+	{
 		damaskill* skill = &type->skill_kkobugi;
 		int current_damage = CountSkillDamage(type, 3, false);
 		int next_damage = CountSkillDamage(type, 3, true);
@@ -206,26 +210,31 @@ void UpgradeSkill(damagochi* type)
 	int choice;
 	scanf_s("%d", &choice);
 
-	if (choice == 0) {
+	if (choice == 0)
+	{
 		printf("강화를 취소했습니다.\n");
 		return;
 	}
 
-	if (choice == 1) {
+	if (choice == 1)
+	{
 		// 해당 다마고치의 스킬 강화
-		if (strcmp(type->damaname, "이상해씨") == 0) {
+		if (strcmp(type->damaname, "이상해씨") == 0)
+		{
 			type->skill_isanghaessi.level++;
 			type->skillpoint--;
 			printf("%s가 Lv.%d로 강화되었습니다! 데미지가 증가합니다.\n",
 				type->skill_isanghaessi.name, type->skill_isanghaessi.level); // 스킬이름 표시해주고 레벨도 증가
 		}
-		else if (strcmp(type->damaname, "파이리") == 0) {
+		else if (strcmp(type->damaname, "파이리") == 0)
+		{
 			type->skill_paili.level++;
 			type->skillpoint--;
 			printf("%s가 Lv.%d로 강화되었습니다! 데미지가 증가합니다.\n",
 				type->skill_paili.name, type->skill_paili.level);// 스킬이름 표시해주고 레벨도 증가
 		}
-		else if (strcmp(type->damaname, "꼬북이") == 0) {
+		else if (strcmp(type->damaname, "꼬북이") == 0)
+		{
 			type->skill_kkobugi.level++;
 			type->skillpoint--;
 			printf("%s가 Lv.%d로 강화되었습니다! 데미지가 증가합니다.\n",

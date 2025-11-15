@@ -101,7 +101,7 @@ int IsGameOver(damagochi* damagochi)
 
 
 
-void Action(int num1, damagochi* target, char* enemyname)
+void Action(int num1, damagochi* target, damagochi* enemy, capture* collection)
 {	//전부 이중포인터 문제 때문에 파라미터변수 앞에 &안달아준거다.
 	switch (num1)
 	{
@@ -115,10 +115,10 @@ void Action(int num1, damagochi* target, char* enemyname)
 		SelectEat(target);
 		break;
 	case 4:
-		SelectWalk(target, enemyname);
+		SelectWalk(target, enemy,collection);
 		break;
 	case 5:
-		SelectTug(target, enemyname);
+		SelectTug(target, enemy, collection);
 		break;
 	case 6:
 		SelectShop(target);
@@ -147,6 +147,32 @@ void Action(int num1, damagochi* target, char* enemyname)
 			break;
 		case 0:
 			printf("이름 변경을 취소했습니다.\n");
+			break;
+		}
+		
+	}
+	break;
+	case 11: // 포획 관리 메뉴
+	{
+		int captureChoice;
+		ShowCaptureMenu();
+		scanf_s("%d", &captureChoice);
+
+		switch (captureChoice) {
+		case 1:
+			// 포획된 다마고치 목록 보기
+			HandleCaptureMenu(&target, collection, true);
+			break;
+		case 2:
+			// 다마고치 교체하기
+			HandleCaptureMenu(&target, collection, false);
+			break;
+		case 3:
+			// 포획된 다마고치 상세 정보 보기
+			ShowDetailedCaptureInfo(collection);
+			break;
+		case 0:
+			printf("포획 관리 메뉴를 종료합니다.\n");
 			break;
 		}
 	}
