@@ -1,8 +1,12 @@
 #pragma once
-void SelectSleep(int*, int*, int*, int*, char*);
-void SelectPoop(int*, char*);
-void SelectEat(int*, int*, char*);
-void SelectWalk(int*, int*, int*, int*, int*, int*, char*, char*);
-void SelectTug(int*, int*, int*, int*, int*, int*, char*, char*);
-void SelectShop(int*, int*, int*, int*);
-void SelectGuide(char*);
+#include "Struct.h"
+
+void SelectSleep(damagochi*);
+void SelectPoop(damagochi*);
+void SelectEat(damagochi*);
+void SelectWalk(damagochi*,damagochi*,capture*);
+void SelectTug(damagochi*,damagochi*, capture*);
+void SelectShop(damagochi*);
+void SelectGuide(damagochi*);
+
+void UpgradeSkill(damagochi*);//스킬업그레이드 함수 선언
