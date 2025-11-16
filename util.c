@@ -127,7 +127,7 @@ void RenameCharacter(damagochi* selected, bool IsDamagochi)
 	printf("새로운 %s 이름을 입력하세요: ", nameType);
 
 	char temp[128];
-	scanf_s("%127", temp, (unsigned)sizeof(temp));
+	scanf_s("%127s", temp, (unsigned)sizeof(temp));
 
 	// realloc으로 메모리 재할당
 	size_t new_size = strlen(temp) + 1; // strln() 함수 반환값이 size_t -> 이건 언사인드 int 다, 음수가없는 int
